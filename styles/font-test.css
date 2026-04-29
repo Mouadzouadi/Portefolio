@@ -1,0 +1,83 @@
+/* ============================================================
+   font-test.css — TEMPORAIRE : test visuel de plusieurs polices
+   sérif sur les titres de chaque section. À supprimer une fois
+   le choix fait. Affiche aussi le nom de la police en haut à
+   droite de chaque section.
+   ============================================================ */
+
+/* Étiquette discrète "police = X" en haut à droite de chaque section */
+.section, .hero {
+  position: relative;
+}
+.section::before, .hero::before {
+  content: attr(data-font);
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: var(--paper);
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.85;
+}
+.section--dark::before {
+  background: var(--ink-2);
+  border-color: color-mix(in oklab, var(--paper) 18%, transparent);
+}
+
+/* ===== Police par section sur les titres + paragraphes serif ===== */
+
+/* HERO — Playfair Display (élégant, contrasté) */
+.hero[data-font] .hero__title,
+.hero[data-font] .hero__title em {
+  font-family: 'Playfair Display', serif !important;
+}
+
+/* 01 Valeur — Fraunces (moderne, chaleureux) */
+#valeur[data-font] .section__title,
+#valeur[data-font] .section__title em,
+#valeur[data-font] .card h3 {
+  font-family: 'Fraunces', serif !important;
+}
+
+/* À propos / Parcours — Cormorant Garamond (très éditorial) */
+#parcours[data-font] .section__title,
+#parcours[data-font] .section__title em {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 600;
+}
+
+/* 02 Agent vocal — DM Serif Display (gras, impactant) */
+#agent[data-font] .section__title,
+#agent[data-font] .section__title em {
+  font-family: 'DM Serif Display', serif !important;
+}
+
+/* 03 Web métier — Libre Caslon Text (classique, sérieux) */
+#metier[data-font] .section__title,
+#metier[data-font] .section__title em,
+#metier[data-font] .demo h3 {
+  font-family: 'Libre Caslon Text', serif !important;
+}
+
+/* 04 Tarifs — EB Garamond (la police actuelle, pour repère) */
+#tarifs[data-font] .section__title,
+#tarifs[data-font] .section__title em,
+#tarifs[data-font] .pricing__name {
+  font-family: 'EB Garamond', serif !important;
+}
+
+/* 05 Contact — Fraunces italic (différent du 01 pour test mix) */
+#contact[data-font] .section__title,
+#contact[data-font] .section__title em {
+  font-family: 'Fraunces', serif !important;
+  font-style: italic;
+}

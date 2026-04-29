@@ -35,7 +35,7 @@
 
 /* En-tête — hauteur fixe pour aligner le trait de séparation entre les cartes */
 .pricing__card-head {
-  min-height: 92px;
+  min-height: 124px;
   margin-bottom: 28px;
   display: flex;
   flex-direction: column;
@@ -59,6 +59,25 @@
 
 .pricing__card--featured .pricing__target {
   color: color-mix(in oklab, var(--paper) 65%, transparent);
+}
+
+/* Indication de prix "À partir de…" */
+.pricing__from {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: color-mix(in oklab, var(--ink) 65%, transparent);
+}
+.pricing__from strong {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.pricing__card--featured .pricing__from {
+  color: color-mix(in oklab, var(--paper) 70%, transparent);
+}
+.pricing__card--featured .pricing__from strong {
+  color: var(--gold-2);
 }
 
 /* Liste des avantages */

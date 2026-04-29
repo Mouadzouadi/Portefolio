@@ -9,8 +9,9 @@
   <link rel="icon" href="logo.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=DM+Serif+Display:ital@0;1&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/font-test.css" />
 </head>
 <body>
   <!-- Grain texture overlay -->
@@ -38,7 +39,7 @@
   </header>
 
   <!-- ============== HERO PERSONNEL ============== -->
-  <section class="hero hero--portrait" id="top">
+  <section class="hero hero--portrait" id="top" data-font="Hero · Playfair Display">
     <div class="hero__grid">
       <div class="hero__media">
         <div class="hero__photo">
@@ -51,7 +52,7 @@
         </div>
       </div>
 
-      <div class="hero__content" id="parcours">
+      <div class="hero__content">
         <div class="hero__meta">
           <span class="dot dot--live"></span>
           <span>Blois (41) — disponible pour vos projets</span>
@@ -63,64 +64,21 @@
         </h1>
 
         <p class="hero__lede">
-          En 4ᵉ année à l'<strong>ESILV</strong> (majeure Ingénierie Logicielle &amp; IA),
-          je suis en alternance chez <strong>Procter &amp; Gamble</strong>, où je développe
-          des solutions data et IA internes— du cadrage
-          du besoin avec les parties prenantes jusqu'au déploiement en production.
+          Je conçois <strong>des outils numériques sur-mesure</strong> pour les commerces de Blois&nbsp;:
+          agent vocal qui répond à votre téléphone 24/7, applications de gestion en français,
+          cartes de fidélité Apple &amp; Google Wallet, sites et applications mobiles.
         </p>
         <p class="hero__lede">
-          Avec <strong>ZM Solutions</strong>, je mets cette même exigence au service des
-          commerces de Blois : <em>des outils pensés pour leur métier</em>, pas des
-          templates génériques.
+          Pas de template générique, pas d'abonnement caché&nbsp;: chaque outil est pensé pour
+          <em>votre métier</em> et l'usage de votre équipe en service.
         </p>
 
-        <div class="hero__columns">
-          <div>
-            <span class="eyebrow eyebrow--small">Parcours</span>
-            <ul class="timeline">
-              <li>
-                <span class="timeline__date">Depuis sept. 2024</span>
-                <strong>Procter &amp; Gamble — Blois (41)</strong>
-                <span>Développeur d'applications · Ingénieur Data &amp; IA, en alternance</span>
-              </li>
-              <li>
-                <span class="timeline__date">2025 — 2028</span>
-                <strong>Cycle Ingénieur · ESILV</strong>
-                <span>Majeure Ingénierie Logicielle &amp; Intelligence Artificielle</span>
-              </li>
-              <li>
-                <span class="timeline__date">2023 — 2025</span>
-                <strong>DUT Informatique · IUT d'Orléans</strong>
-                <span>En apprentissage</span>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <span class="eyebrow eyebrow--small">Ce qui me définit</span>
-            <div class="skills">
-              <div class="skills__group">
-                <h4>Compétences</h4>
-                <div class="skills__chips skills__chips--soft">
-                  <span>Cadrage du besoin</span><span>Conseil client</span><span>Gestion de projet</span><span>Pilotage de déploiement</span>
-                </div>
-              </div>
-              <div class="skills__group">
-                <h4>Langues</h4>
-                <div class="skills__chips skills__chips--soft">
-                  <span>Français</span><span>Anglais — B2</span><span>Arabe</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="hero__ctas">
-          <a href="#agent" class="btn btn--primary">
+          <a href="#valeur" class="btn btn--primary">
             <span class="btn__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v3M12 18v3M5 12H2M22 12h-3M5.6 5.6 7.7 7.7M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="4"/></svg>
             </span>
-            Essayer l'agent vocal
+            Voir ce que je propose
           </a>
           <a href="#contact" class="btn btn--ghost">Travailler avec moi →</a>
         </div>
@@ -129,7 +87,7 @@
   </section>
 
   <!-- ============== VALEUR ============== -->
-  <section class="section" id="valeur">
+  <section class="section" id="valeur" data-font="01 · Fraunces">
     <div class="section__head">
       <span class="eyebrow">01 — Ce que je propose</span>
       <h2 class="section__title">Tout le numérique de votre commerce, sous <em>un même toit</em>.</h2>
@@ -192,8 +150,62 @@
     </p>
   </section>
 
+  <!-- ============== PARCOURS ============== -->
+  <section class="section" id="parcours" data-font="À propos · Cormorant Garamond">
+    <div class="section__head">
+      <span class="eyebrow">À propos</span>
+      <h2 class="section__title">Pourquoi me confier <em>vos outils numériques</em>&nbsp;?</h2>
+      <p class="section__sub">
+        En 4ᵉ année à l'<strong>ESILV</strong> (Ingénierie Logicielle &amp; IA), en alternance chez
+        <strong>Procter &amp; Gamble</strong> à Blois&nbsp;: je développe au quotidien des solutions data
+        et IA en production. La même exigence, au service des commerces locaux.
+      </p>
+    </div>
+
+    <div class="hero__columns">
+      <div>
+        <span class="eyebrow eyebrow--small">Parcours</span>
+        <ul class="timeline">
+          <li>
+            <span class="timeline__date">Depuis sept. 2024</span>
+            <strong>Procter &amp; Gamble — Blois (41)</strong>
+            <span>Développeur d'applications · Ingénieur Data &amp; IA, en alternance</span>
+          </li>
+          <li>
+            <span class="timeline__date">2025 — 2028</span>
+            <strong>Cycle Ingénieur · ESILV</strong>
+            <span>Majeure Ingénierie Logicielle &amp; Intelligence Artificielle</span>
+          </li>
+          <li>
+            <span class="timeline__date">2023 — 2025</span>
+            <strong>DUT Informatique · IUT d'Orléans</strong>
+            <span>En apprentissage</span>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <span class="eyebrow eyebrow--small">Ce qui me définit</span>
+        <div class="skills">
+          <div class="skills__group">
+            <h4>Compétences</h4>
+            <div class="skills__chips skills__chips--soft">
+              <span>Cadrage du besoin</span><span>Conseil client</span><span>Gestion de projet</span><span>Pilotage de déploiement</span>
+            </div>
+          </div>
+          <div class="skills__group">
+            <h4>Langues</h4>
+            <div class="skills__chips skills__chips--soft">
+              <span>Français</span><span>Anglais — B2</span><span>Arabe</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============== AGENT VOCAL ============== -->
-  <section class="section section--dark" id="agent">
+  <section class="section section--dark" id="agent" data-font="02 · DM Serif Display">
     <div class="section__head">
       <span class="eyebrow">02 — Démonstration interactive</span>
       <h2 class="section__title">Écoutez votre futur standard téléphonique.</h2>
@@ -256,7 +268,7 @@
   </section>
 
   <!-- ============== WEB MÉTIER ============== -->
-  <section class="section section--wide" id="metier">
+  <section class="section section--wide" id="metier" data-font="03 · Libre Caslon Text">
     <div class="section__head">
       <span class="eyebrow">03 — Aperçus interactifs</span>
       <h2 class="section__title">Quatre exemples concrets, <em>réellement cliquables</em>.</h2>
@@ -609,7 +621,7 @@
   </div>
 
   <!-- ============== TARIFS ============== -->
-  <section class="section section--wide" id="tarifs">
+  <section class="section section--wide" id="tarifs" data-font="04 · EB Garamond (actuelle)">
     <div class="section__head">
       <span class="eyebrow">04 — Tarifs</span>
       <h2 class="section__title">Choisissez la formule qui vous va</h2>
@@ -658,7 +670,7 @@
   </section>
 
   <!-- ============== CONTACT ============== -->
-  <section class="section section--dark" id="contact">
+  <section class="section section--dark" id="contact" data-font="05 · Fraunces italic">
     <div class="contact">
       <div class="contact__intro">
         <span class="eyebrow">05 — Échanger</span>
