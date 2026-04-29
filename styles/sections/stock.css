@@ -1,0 +1,136 @@
+/* ============================================================
+   sections/stock.css — démo gestion de stock (table + stats)
+   ============================================================ */
+
+.stock__head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 16px; flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.stock__head h4 {
+  font-family: var(--serif); font-weight: 500; font-size: 22px;
+  margin: 0 0 2px;
+}
+.stock__head small {
+  font-size: 12px; letter-spacing: .04em; text-transform: uppercase;
+  color: color-mix(in oklab, var(--ink) 55%, transparent);
+}
+
+.stock__search { display: flex; gap: 8px; }
+.stock__search input {
+  background: var(--paper);
+  border: 1px solid var(--line); border-radius: 8px;
+  padding: 8px 12px; font: inherit; font-size: 13px;
+  min-width: 200px; color: var(--ink);
+}
+.stock__search input:focus { outline: 2px solid var(--ink); outline-offset: 1px; }
+
+.stock__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  margin: 0 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.stock__stats > div {
+  background: #fff; padding: 12px 14px;
+  display: flex; flex-direction: column;
+}
+.stock__stats strong {
+  font-family: var(--serif); font-size: 24px; font-weight: 500;
+}
+.stock__stats span {
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: color-mix(in oklab, var(--ink) 55%, transparent);
+}
+
+/* Conteneur scroll horizontal : la table peut dépasser en largeur,
+   on offre un scroll local sans casser le layout du mockup. */
+.stock__table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  /* Petite ombre pour signaler que c'est scrollable */
+  background:
+    linear-gradient(to right, #fff 30%, transparent),
+    linear-gradient(to right, transparent, #fff 70%) 100% 0,
+    linear-gradient(to right, rgba(0,0,0,.06), transparent),
+    linear-gradient(to left,  rgba(0,0,0,.06), transparent) 100% 0;
+  background-repeat: no-repeat;
+  background-size: 32px 100%, 32px 100%, 12px 100%, 12px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+
+.stock__table {
+  width: 100%;
+  border-collapse: collapse; font-size: 14px;
+  table-layout: auto;
+}
+.stock__table th, .stock__table td {
+  text-align: left; padding: 12px 8px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+/* Colonne action toujours visible à droite, même en cas de scroll */
+.stock__table th:last-child,
+.stock__table td:last-child {
+  position: sticky; right: 0;
+  background: #fff;
+  text-align: right;
+  white-space: nowrap;
+  width: 1%;
+  padding-left: 14px; padding-right: 4px;
+  box-shadow: -8px 0 12px -8px rgba(0,0,0,.08);
+}
+.stock__table tr:hover td:last-child {
+  background: color-mix(in oklab, var(--paper) 50%, white);
+}
+.stock__table th {
+  font-weight: 500; font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: color-mix(in oklab, var(--ink) 55%, transparent);
+}
+.stock__table tr:last-child td { border-bottom: 0; }
+.stock__table tr:hover td { background: color-mix(in oklab, var(--paper) 50%, white); }
+
+/* Barre de progression de stock */
+.bar { display: inline-flex; align-items: center; gap: 8px; }
+.bar__track {
+  width: 80px; height: 6px; border-radius: 3px;
+  background: color-mix(in oklab, var(--ink) 10%, transparent);
+  overflow: hidden;
+}
+.bar__fill {
+  height: 100%; background: var(--green);
+  transition: width .8s var(--ease), background .3s var(--ease);
+}
+.bar__fill.is-warn { background: var(--amber); }
+.bar__fill.is-bad  { background: var(--red); }
+.bar__num { font-variant-numeric: tabular-nums; font-size: 13px; }
+
+/* Tags de statut */
+.tag {
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid currentColor;
+}
+.tag--ok    { color: var(--green); }
+.tag--warn  { color: var(--amber); }
+.tag--bad   { color: var(--red); background: color-mix(in oklab, var(--red) 10%, transparent); }
+.tag::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: currentColor;
+}
+
+.row-cta {
+  background: var(--ink); border: 1px solid var(--ink);
+  padding: 7px 14px; border-radius: 8px; font-size: 12.5px;
+  color: var(--paper); white-space: nowrap;
+  cursor: pointer;
+  transition: all .2s var(--ease);
+}
+.row-cta:hover    { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+.row-cta:disabled { background: var(--green); border-color: var(--green); cursor: default; opacity: .9; }

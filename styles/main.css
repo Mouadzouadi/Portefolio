@@ -1,0 +1,36 @@
+/* ============================================================
+   ZM Solutions — feuille de styles principale.
+
+   Ce fichier orchestre uniquement les imports. La logique est
+   répartie par responsabilité dans les sous-dossiers :
+
+     base/       — variables, reset, body, grain
+     components/ — éléments réutilisables (nav, btn, mockup, modal…)
+     sections/   — styles spécifiques à chaque section de la page
+     utils/      — points de rupture responsive
+   ============================================================ */
+
+/* --- Base --- */
+@import url("base/tokens.css");
+@import url("base/reset.css");
+
+/* --- Composants réutilisables --- */
+@import url("components/buttons.css");
+@import url("components/nav.css");
+@import url("components/section.css");
+@import url("components/forms.css");
+@import url("components/mockup.css");
+
+/* --- Sections de la page --- */
+@import url("sections/hero.css");
+@import url("sections/cards.css");
+@import url("sections/agent.css");
+@import url("sections/stock.css");
+@import url("sections/orders.css");
+@import url("sections/loyalty.css");
+@import url("sections/shop.css");
+@import url("sections/pricing.css");
+@import url("sections/contact.css");
+
+/* --- Responsive (toujours en dernier pour overrides) --- */
+@import url("utils/responsive.css");

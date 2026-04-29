@@ -1,0 +1,155 @@
+/* ============================================================
+   utils/responsive.css — adaptations par taille d'écran.
+   Stratégie : du plus large au plus étroit, chaque palier
+   désactive un comportement coûteux (sticky, multi-colonnes,
+   colonnes optionnelles dans les tables, etc.).
+   ============================================================ */
+
+/* ===== ≤ 1180px : on resserre les grilles 4 colonnes ===== */
+@media (max-width: 1180px) {
+  .cards--4 { grid-template-columns: repeat(2, 1fr); }
+  .demo { grid-template-columns: 1fr 1.2fr; gap: clamp(20px, 3vw, 40px); }
+  .demo__intro { position: static; top: auto; }
+}
+
+/* ===== ≤ 980px : tablette → tout passe en mono-colonne ===== */
+@media (max-width: 980px) {
+  /* Nav burger */
+  .nav__links  { display: none; }
+  .nav__burger { display: inline-flex; }
+  .nav.is-open .nav__links {
+    display: flex; position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--paper); border-bottom: 1px solid var(--line);
+    padding: 12px var(--pad);
+  }
+  .nav.is-open .nav__links a {
+    padding: 14px 0; border-bottom: 1px solid var(--line);
+  }
+  .nav.is-open .nav__links a::after { display: none; }
+
+  /* Grilles */
+  .cards, .quotes, .cards--4 { grid-template-columns: 1fr; }
+  .demo, .demo--reverse { grid-template-columns: 1fr; }
+  .demo--reverse > .demo__intro { order: 0; }
+  .agent__panel { grid-template-columns: 1fr; }
+  .contact      { grid-template-columns: 1fr; }
+
+  /* Hero : photo en haut, plus de sticky */
+  .hero__grid    { grid-template-columns: 1fr; }
+  .hero__media   { position: static; max-width: 320px; }
+  .hero__columns { grid-template-columns: 1fr; gap: 32px; }
+
+  /* Loyalty : phone centré + badges en ligne dessous */
+  .loyalty {
+    flex-direction: column; align-items: center;
+  }
+  .loyalty__badges {
+    flex-direction: row; padding-top: 0; justify-content: center; flex-wrap: wrap;
+  }
+
+  /* Shop hero */
+  .shop__hero { grid-template-columns: 1fr; padding: 22px; }
+  .shop__hero-meta { justify-content: flex-start; }
+  .shop__cats { padding: 12px 16px; gap: 6px; }
+  .shop__cat  { font-size: 12px; padding: 6px 12px; }
+  .shop__menu { padding: 18px 16px; }
+}
+
+/* ===== ≤ 720px : grand mobile ===== */
+@media (max-width: 720px) {
+  /* Stock — entête en colonne, recherche pleine largeur */
+  .stock__head   { flex-direction: column; align-items: stretch; }
+  .stock__search { flex-direction: column; }
+  .stock__search input { width: 100%; min-width: 0; }
+
+  /* Stock — table compacte : on cache 2 colonnes secondaires */
+  .stock__table { font-size: 13px; }
+  .stock__table th, .stock__table td { padding: 10px 6px; }
+  .stock__table th:nth-child(2),
+  .stock__table td:nth-child(2),
+  .stock__table th:nth-child(4),
+  .stock__table td:nth-child(4) { display: none; }
+  .bar__track { width: 56px; }
+
+  /* Forms */
+  .field-row     { grid-template-columns: 1fr; }
+  .contact__form { grid-template-columns: 1fr; padding: 22px; }
+
+  /* Shop hero compacte */
+  .shop__hero { padding: 18px; gap: 14px; }
+  .shop__hero h4 { font-size: 22px; }
+  .shop__hero-meta { gap: 8px; }
+  .shop__hero-meta > div {
+    flex: 1 1 calc(33% - 8px); min-width: 0; padding: 9px 10px;
+  }
+  .shop__hero-meta strong { font-size: 18px; }
+
+  /* Footer empilé */
+  .footer__top    { justify-content: flex-start; }
+  .footer__bottom { flex-direction: column; gap: 6px; }
+}
+
+/* ===== ≤ 600px : mobile standard ===== */
+@media (max-width: 600px) {
+  /* Modal devient une "feuille" en bas d'écran */
+  .modal { padding: 0; align-items: flex-end; }
+  .modal__panel {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 18px 18px 0 0;
+    transform: translateY(100%);
+  }
+  .modal.is-open .modal__panel { transform: translateY(0); }
+  .modal__head { padding: 16px 18px; }
+  .modal__head h3 { font-size: 18px; }
+  .modal__form { padding: 16px 18px 24px; gap: 12px; }
+  .modal__actions { flex-direction: column-reverse; }
+  .modal__actions .btn { width: 100%; justify-content: center; }
+
+  /* Stock — on cache une 3ᵉ colonne (statut texte) */
+  .stock__table th:nth-child(5),
+  .stock__table td:nth-child(5) { display: none; }
+
+  /* Shop : 2 colonnes minimum pour rester aéré */
+  .shop__menu      { grid-template-columns: 1fr 1fr; gap: 10px; padding: 14px; }
+  .shop-item__body { padding: 10px 12px 12px; }
+  .shop-item__name { font-size: 14px; }
+  .shop-item__desc { display: none; }
+  .shop-item__add  { width: 30px; height: 30px; font-size: 17px; }
+
+  /* Cart line plus compacte */
+  .cart-line { grid-template-columns: 36px 1fr auto; gap: 8px; font-size: 12.5px; }
+  .cart-line__img { width: 36px; height: 36px; }
+
+  /* Loyalty phone scale down */
+  .loyalty__phone { width: 250px; }
+
+  /* Agent — transcript sur 1 colonne, hauteur réduite */
+  .agent { padding: 20px; }
+  .agent__transcript { min-height: 280px; max-height: 380px; padding: 16px; }
+  .agent__phone { padding: 20px; }
+}
+
+/* ===== ≤ 460px : petit mobile ===== */
+@media (max-width: 460px) {
+  .shop__menu { grid-template-columns: 1fr; }
+  .shop__hero-meta > div { flex: 1 1 calc(50% - 8px); }
+  .shop__cart-head { padding: 14px 16px; font-size: 15px; }
+  .shop__cart-foot { padding: 12px 16px 14px; }
+
+  /* Stock — version "carte" : on n'affiche que produit + barre */
+  .stock__stats { grid-template-columns: 1fr 1fr; }
+
+  /* Hero CTA pleine largeur */
+  .hero__ctas .btn { width: 100%; justify-content: center; }
+}
+
+/* ===== Reduce motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  html { scroll-behavior: auto; }
+}

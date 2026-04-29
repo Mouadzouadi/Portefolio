@@ -1,0 +1,299 @@
+/* ============================================================
+   sections/loyalty.css — carte de fidélité dans Apple/Google Wallet
+   ============================================================ */
+
+.loyalty {
+  display: flex; align-items: flex-start; justify-content: center;
+  gap: 28px; padding: 30px 10px;
+}
+
+.loyalty__phone {
+  width: 280px;
+  background: linear-gradient(160deg, #1c1c1e 0%, #0a0a0c 100%);
+  border-radius: 38px;
+  padding: 12px;
+  box-shadow:
+    0 50px 80px -40px rgba(0,0,0,.5),
+    0 0 0 1px rgba(255,255,255,.06) inset,
+    0 0 0 8px rgba(0,0,0,.06);
+  position: relative;
+}
+.loyalty__notch {
+  position: absolute; left: 50%; top: 18px;
+  transform: translateX(-50%);
+  width: 90px; height: 22px;
+  background: #000; border-radius: 999px;
+  z-index: 2;
+}
+.loyalty__screen {
+  background: #000; border-radius: 28px;
+  padding: 36px 16px 18px;
+  min-height: 540px;
+  color: #fff;
+  position: relative; overflow: hidden;
+}
+
+.loyalty__statusbar {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; font-weight: 600;
+  padding: 0 6px 8px;
+  font-variant-numeric: tabular-nums;
+}
+.loyalty__statusicons { display: inline-flex; gap: 4px; align-items: center; }
+.sb { display: inline-block; width: 14px; height: 9px; background: #fff; border-radius: 2px; }
+.sb--signal { clip-path: polygon(0 80%, 25% 80%, 25% 60%, 50% 60%, 50% 30%, 75% 30%, 75% 0, 100% 0, 100% 100%, 0 100%); }
+.sb--wifi   { clip-path: polygon(50% 0, 100% 50%, 80% 70%, 50% 40%, 20% 70%, 0 50%); }
+.sb--batt   {
+  width: 20px; height: 10px;
+  border: 1px solid #fff; background: transparent; border-radius: 2px;
+  position: relative;
+}
+.sb--batt::before {
+  content: ""; position: absolute; inset: 1px; right: 25%;
+  background: #fff; border-radius: 1px;
+}
+
+.loyalty__title {
+  font-size: 28px; font-weight: 700; letter-spacing: -0.5px;
+  margin: 4px 6px 16px;
+}
+
+/* ===== Notification push iOS-style ===== */
+.push {
+  position: absolute;
+  top: 50px; left: 10px; right: 10px;
+  z-index: 5;
+  background: rgba(40, 40, 45, .82);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-radius: 18px;
+  padding: 10px 12px;
+  color: #fff;
+  font-size: 13px;
+  box-shadow: 0 12px 30px -10px rgba(0,0,0,.5);
+  opacity: 0;
+  transform: translateY(-12px) scale(.96);
+  transition:
+    opacity .35s var(--ease),
+    transform .45s var(--ease);
+  pointer-events: none;
+}
+.push.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.push__head {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10px; letter-spacing: .08em;
+  color: rgba(255,255,255,.7);
+  margin-bottom: 4px;
+}
+.push__icon {
+  width: 24px; height: 24px;
+  border-radius: 6px;
+  background: var(--paper-2); padding: 2px;
+  flex-shrink: 0;
+}
+.push__app { flex: 1; font-weight: 600; }
+.push__time { font-weight: 400; }
+.push__body { padding-left: 0; }
+.push__title {
+  display: block;
+  font-size: 13px; font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 2px;
+}
+.push__text {
+  margin: 0;
+  font-size: 12px; line-height: 1.35;
+  color: rgba(255,255,255,.85);
+}
+
+/* ===== Pass card (Apple Wallet style) ===== */
+.pass {
+  background: linear-gradient(135deg, #b9925a 0%, #8a6536 50%, #6b4a23 100%);
+  border-radius: 14px;
+  color: #fff;
+  padding: 16px 16px 12px;
+  position: relative; overflow: hidden;
+  box-shadow:
+    0 20px 40px -20px rgba(0,0,0,.6),
+    0 1px 0 rgba(255,255,255,.18) inset;
+  transition: transform .35s var(--ease);
+}
+.pass::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,.15), transparent 50%),
+    radial-gradient(circle at 20% 90%, rgba(0,0,0,.2), transparent 50%);
+  pointer-events: none;
+}
+.pass.is-celebrating { animation: passCelebrate .9s var(--ease); }
+@keyframes passCelebrate {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.04) rotate(-1deg); box-shadow: 0 25px 50px -10px rgba(185,146,90,.6); }
+  60%  { transform: scale(1.02) rotate(.5deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+.pass__head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.18);
+  margin-bottom: 12px;
+  position: relative; z-index: 1;
+}
+.pass__brand { display: flex; align-items: center; gap: 8px; }
+.pass__brand img {
+  width: 36px; height: 36px; border-radius: 9px;
+  background: var(--paper-2); padding: 4px; object-fit: contain;
+}
+.pass__brand span { font-size: 12px; font-weight: 600; }
+.pass__type {
+  font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
+  opacity: .8;
+}
+
+.pass__body {
+  display: flex; flex-direction: column; gap: 12px;
+  position: relative; z-index: 1;
+}
+.pass__row {
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.pass__label {
+  font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+  opacity: .75;
+}
+.pass__value {
+  font-family: var(--serif); font-weight: 500; font-size: 15px;
+}
+
+.pass__stamps {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 6px; margin: 4px 0 6px;
+}
+.stamp {
+  aspect-ratio: 1; border-radius: 50%;
+  border: 1.5px dashed rgba(255,255,255,.4);
+  transition: all .3s var(--ease);
+  position: relative;
+}
+.stamp.is-filled {
+  background: rgba(255,255,255,.95);
+  border-style: solid; border-color: rgba(255,255,255,.95);
+}
+/* Logo ZM dans chaque tampon validé */
+.stamp.is-filled::after {
+  content: "ZM";
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.02em;
+  color: #6b4a23; /* même tonalité or que le pass */
+  line-height: 1;
+}
+
+.pass__progress {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,.18);
+}
+
+.pass__foot {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  margin-top: 14px; padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,.18);
+}
+.pass__barcode { width: 100%; height: 32px; }
+.pass__id {
+  font-size: 9px; letter-spacing: .15em; opacity: .7;
+  font-variant-numeric: tabular-nums;
+}
+
+.loyalty__hint {
+  margin: 16px 4px 0;
+  font-size: 11px; text-align: center; line-height: 1.5;
+  color: rgba(255,255,255,.55);
+}
+
+.loyalty__badges {
+  display: flex; flex-direction: column; gap: 12px;
+  padding-top: 30px;
+}
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 14px;
+  background: var(--ink); color: var(--paper);
+  border-radius: 10px;
+  font-size: 13px; font-weight: 500;
+  white-space: nowrap;
+}
+.badge svg { width: 18px; height: 18px; }
+
+.loyalty__controls {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+/* ===== Console commerçant : templates de push ===== */
+.push-console {
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+.push-console__label {
+  display: block;
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: color-mix(in oklab, var(--ink) 55%, transparent);
+  margin-bottom: 12px;
+}
+.push-console__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+.push-tpl {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; text-align: left;
+  background: var(--paper);
+  border: 1px solid var(--line); border-radius: 10px;
+  cursor: pointer; color: var(--ink);
+  transition: all .2s var(--ease);
+  font: inherit;
+}
+.push-tpl:hover {
+  border-color: var(--ink);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px -10px rgba(0,0,0,.15);
+}
+.push-tpl:active { transform: translateY(0); }
+.push-tpl.is-sent {
+  border-color: var(--green);
+  background: color-mix(in oklab, var(--green) 8%, var(--paper));
+}
+.push-tpl__icon {
+  font-size: 18px; line-height: 1;
+  width: 32px; height: 32px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: color-mix(in oklab, var(--gold) 18%, var(--paper));
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.push-tpl__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.push-tpl__body strong {
+  font-size: 13px; font-weight: 600;
+}
+.push-tpl__body small {
+  font-size: 11.5px; line-height: 1.3;
+  color: color-mix(in oklab, var(--ink) 60%, transparent);
+  /* tronque sur 1 ligne si trop long */
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.push-console__hint {
+  margin: 12px 0 0; font-size: 12px;
+  color: color-mix(in oklab, var(--ink) 55%, transparent);
+}

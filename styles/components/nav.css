@@ -1,0 +1,53 @@
+/* ============================================================
+   components/nav.css
+   ============================================================ */
+
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px var(--pad);
+  background: color-mix(in oklab, var(--paper) 88%, transparent);
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid color-mix(in oklab, var(--line) 60%, transparent);
+}
+
+.nav__brand { display: flex; align-items: center; gap: 12px; }
+.nav__logo {
+  width: 58px; height: 58px; border-radius: 14px;
+  background: var(--paper-2); padding: 6px; object-fit: contain;
+}
+.nav__wordmark { display: flex; flex-direction: column; line-height: 1.1; }
+.nav__wordmark-main { font-family: var(--serif); font-weight: 500; font-size: 19px; }
+.nav__wordmark-sub  {
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: color-mix(in oklab, var(--ink) 55%, transparent);
+}
+
+.nav__links { display: flex; align-items: center; gap: 28px; }
+.nav__links a {
+  font-size: 14px; position: relative;
+  color: color-mix(in oklab, var(--ink) 75%, transparent);
+  transition: color .25s var(--ease);
+}
+.nav__links a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -6px;
+  height: 1px; background: var(--ink);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .35s var(--ease);
+}
+.nav__links a:hover { color: var(--ink); }
+.nav__links a:hover::after { transform: scaleX(1); }
+
+.nav__cta {
+  background: var(--ink); color: var(--paper) !important;
+  padding: 10px 16px; border-radius: 999px; font-weight: 500;
+}
+.nav__cta::after { display: none; }
+.nav__cta:hover { background: var(--ink-3); }
+
+.nav__burger {
+  display: none; background: none; border: 0; padding: 8px;
+  flex-direction: column; gap: 4px;
+}
+.nav__burger span { width: 22px; height: 1.5px; background: var(--ink); }

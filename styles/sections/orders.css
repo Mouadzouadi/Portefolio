@@ -1,0 +1,132 @@
+/* ============================================================
+   sections/orders.css — démo préparation des commandes (kanban)
+   ============================================================ */
+
+.orders__head {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.orders__filters { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.pill {
+  background: var(--paper);
+  border: 1px solid var(--line); color: var(--ink);
+  padding: 8px 14px; border-radius: 999px; font-size: 13px;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: all .2s var(--ease);
+}
+.pill em {
+  font-style: normal; font-size: 11px;
+  padding: 2px 7px; border-radius: 999px;
+  background: color-mix(in oklab, var(--ink) 8%, transparent);
+}
+.pill:hover { border-color: var(--ink); }
+.pill.is-active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.pill.is-active em {
+  background: color-mix(in oklab, var(--paper) 25%, transparent);
+  color: var(--paper);
+}
+
+.orders__clock {
+  font-family: var(--serif); font-size: 18px;
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in oklab, var(--ink) 70%, transparent);
+}
+
+.orders__grid {
+  display: grid; gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  /* Lignes de même hauteur : toutes les cartes d'une même ligne
+     s'étirent jusqu'au plus grand contenu, pour que les boutons
+     d'action soient alignés en bas. */
+  grid-auto-rows: 1fr;
+  min-height: 280px;
+  align-content: start;
+}
+
+/* Chaque carte hh étirable verticalement → le bouton tombe en bas */
+.order {
+  align-self: stretch;
+}
+
+.order {
+  background: var(--paper);
+  border: 1px solid var(--line); border-radius: 12px;
+  padding: 14px;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: all .3s var(--ease);
+  position: relative; overflow: hidden;
+}
+.order::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; background: var(--gold);
+}
+.order[data-status="new"]::before  { background: var(--rose); }
+.order[data-status="prep"]::before { background: var(--amber); }
+.order[data-status="done"]::before { background: var(--green); }
+.order[data-status="done"] { opacity: .6; }
+.order:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -16px rgba(0,0,0,.18);
+}
+
+.order__top {
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.order__id { font-family: var(--serif); font-size: 20px; font-weight: 500; }
+.order__time {
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: color-mix(in oklab, var(--ink) 55%, transparent);
+}
+.order__client {
+  font-size: 13px;
+  color: color-mix(in oklab, var(--ink) 75%, transparent);
+}
+
+.order__items { list-style: none; padding: 0; margin: 0; font-size: 13px; }
+.order__items li {
+  display: flex; align-items: center; gap: 8px; padding: 4px 0;
+  cursor: pointer; user-select: none;
+}
+.order__items li::before {
+  content: ""; width: 14px; height: 14px;
+  border: 1.5px solid color-mix(in oklab, var(--ink) 30%, transparent);
+  border-radius: 4px; flex-shrink: 0;
+  transition: all .2s var(--ease);
+}
+.order__items li.is-checked {
+  color: color-mix(in oklab, var(--ink) 45%, transparent);
+  text-decoration: line-through;
+}
+.order__items li.is-checked::before {
+  background: var(--ink); border-color: var(--ink);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f6f1e7' stroke-width='3'><polyline points='20 6 9 17 4 12'/></svg>");
+  background-size: 10px; background-position: center; background-repeat: no-repeat;
+}
+
+.order__qty {
+  margin-left: auto; font-size: 11px;
+  background: color-mix(in oklab, var(--ink) 8%, transparent);
+  padding: 2px 7px; border-radius: 999px;
+}
+
+.order__action {
+  /* margin-top: auto pousse le bouton tout en bas, peu importe le nombre
+     d'articles dans la commande → alignement parfait sur toute la ligne. */
+  margin-top: auto;
+  background: var(--ink); color: var(--paper);
+  border: 0; padding: 10px 12px; border-radius: 8px;
+  font-size: 12px; letter-spacing: .04em;
+  transition: background .25s var(--ease);
+  width: 100%;
+}
+.order__action:hover { background: var(--ink-3); }
+.order__action[data-status="new"]  { background: var(--rose); }
+.order__action[data-status="prep"] { background: var(--ink); }
+.order__action[data-status="done"] {
+  background: var(--green); cursor: default; opacity: .85;
+}
+.order__action[data-status="done"]:hover {
+  background: var(--green); transform: none;
+}

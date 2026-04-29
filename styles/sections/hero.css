@@ -1,0 +1,147 @@
+/* ============================================================
+   sections/hero.css — bloc d'introduction personnel
+   ============================================================ */
+
+.hero {
+  position: relative;
+  padding: clamp(48px, 7vw, 96px) var(--pad) clamp(60px, 8vw, 110px);
+  max-width: var(--maxw); margin: 0 auto;
+}
+.hero__grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+
+.hero__media { position: sticky; top: 100px; }
+.hero__photo {
+  position: relative;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--ink);
+  aspect-ratio: 4 / 5;
+  box-shadow: 0 40px 80px -40px color-mix(in oklab, var(--ink) 50%, transparent);
+}
+.hero__photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: contrast(1.02) saturate(0.95);
+  transition: transform 1.2s var(--ease);
+}
+.hero__photo:hover img { transform: scale(1.03); }
+.hero__photo-frame {
+  position: absolute; inset: 14px;
+  border: 1px solid color-mix(in oklab, var(--paper) 40%, transparent);
+  border-radius: calc(var(--r-lg) - 6px);
+  pointer-events: none; mix-blend-mode: overlay;
+}
+
+.hero__signature {
+  margin-top: 22px; padding-left: 4px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.hero__sig-line {
+  font-family: var(--serif); font-style: italic; font-weight: 400;
+  font-size: 28px; letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.hero__sig-sub {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: color-mix(in oklab, var(--ink) 55%, transparent);
+}
+
+.hero__content { min-width: 0; }
+.hero__meta {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+  color: color-mix(in oklab, var(--ink) 60%, transparent);
+  margin-bottom: 24px;
+}
+
+.hero__title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(32px, 4.8vw, 56px);
+  line-height: 1.1; letter-spacing: -0.015em;
+  margin: 0 0 22px;
+}
+.hero__title em {
+  font-style: italic; font-weight: 400;
+  color: color-mix(in oklab, var(--ink) 70%, var(--gold));
+}
+.hero__title .hl {
+  background: linear-gradient(180deg, transparent 62%, color-mix(in oklab, var(--gold) 35%, transparent) 62%);
+  padding: 0 .08em;
+}
+
+.hero__lede {
+  max-width: 60ch; font-size: clamp(15px, 1.2vw, 17px);
+  color: color-mix(in oklab, var(--ink) 78%, transparent);
+  margin: 0 0 14px;
+}
+.hero__lede strong { color: var(--ink); font-weight: 600; }
+.hero__lede em {
+  font-style: italic;
+  color: color-mix(in oklab, var(--ink) 70%, var(--gold));
+}
+
+.hero__columns {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 40px; margin: 36px 0 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* ===== Timeline (parcours) ===== */
+.timeline { list-style: none; padding: 0; margin: 0; }
+.timeline li {
+  position: relative;
+  padding: 12px 0 12px 22px;
+  border-bottom: 1px dashed color-mix(in oklab, var(--line) 80%, transparent);
+}
+.timeline li:last-child { border-bottom: 0; }
+.timeline li::before {
+  content: ""; position: absolute; left: 0; top: 20px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--gold) 20%, transparent);
+}
+.timeline__date {
+  display: block;
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: color-mix(in oklab, var(--ink) 55%, transparent);
+  margin-bottom: 4px;
+}
+.timeline strong { display: block; font-size: 14px; font-weight: 600; }
+.timeline span:not(.timeline__date) {
+  display: block; font-size: 13px;
+  color: color-mix(in oklab, var(--ink) 65%, transparent);
+}
+
+/* ===== Compétences (chips) ===== */
+.skills { display: flex; flex-direction: column; gap: 18px; }
+.skills__group h4 {
+  margin: 0 0 8px;
+  font-family: var(--sans); font-size: 13px; font-weight: 500;
+  color: var(--ink);
+}
+.skills__chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.skills__chips span {
+  display: inline-flex; align-items: center;
+  padding: 5px 11px; border-radius: 999px;
+  font-size: 12px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  color: color-mix(in oklab, var(--ink) 80%, transparent);
+  transition: all .25s var(--ease);
+}
+.skills__chips span:hover {
+  background: var(--ink); color: var(--paper); border-color: var(--ink);
+}
+.skills__chips--soft span {
+  background: transparent; font-style: italic;
+  font-family: var(--serif); font-size: 14px;
+  border-color: color-mix(in oklab, var(--gold) 50%, var(--line));
+  color: var(--ink);
+}

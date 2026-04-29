@@ -1,0 +1,77 @@
+/* ============================================================
+   sections/contact.css — section contact + témoignages
+   ============================================================ */
+
+/* ===== Témoignages (réutilisables) ===== */
+.quotes {
+  display: grid; gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+}
+.quote {
+  margin: 0;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 32px 28px;
+  display: flex; flex-direction: column; gap: 18px;
+}
+.quote__logo { width: 56px; height: 56px; color: var(--gold); }
+.quote__logo svg { width: 100%; height: 100%; }
+.quote blockquote {
+  margin: 0;
+  font-family: var(--serif); font-style: italic;
+  font-size: 18px; line-height: 1.4; letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.quote figcaption { display: flex; flex-direction: column; gap: 2px; }
+.quote figcaption strong { font-weight: 600; font-size: 14px; }
+.quote figcaption span {
+  font-size: 12px;
+  color: color-mix(in oklab, var(--ink) 55%, transparent);
+}
+
+/* ===== Contact ===== */
+.contact {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+.contact .section__title { color: var(--paper); }
+.contact__intro p {
+  color: color-mix(in oklab, var(--paper) 75%, transparent);
+  max-width: 50ch;
+}
+.contact__channels {
+  list-style: none; padding: 0; margin: 28px 0 0;
+  border-top: 1px solid color-mix(in oklab, var(--paper) 18%, transparent);
+}
+.contact__channels li {
+  display: flex; gap: 16px; padding: 14px 0;
+  border-bottom: 1px solid color-mix(in oklab, var(--paper) 12%, transparent);
+  font-size: 14px;
+}
+.contact__channels span:first-child {
+  width: 90px; flex-shrink: 0;
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: color-mix(in oklab, var(--paper) 55%, transparent);
+  padding-top: 2px;
+}
+.contact__channels a:hover { color: var(--gold-2); }
+
+.contact__form {
+  background: color-mix(in oklab, var(--paper) 6%, var(--ink));
+  border: 1px solid color-mix(in oklab, var(--paper) 12%, transparent);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+}
+
+.field__actions .btn--primary { background: var(--gold); color: var(--ink); }
+.field__actions .btn--primary:hover { background: var(--gold-2); }
+
+.contact__feedback {
+  grid-column: 1 / -1;
+  margin: 0; min-height: 20px;
+  font-size: 13px; color: var(--gold-2);
+}

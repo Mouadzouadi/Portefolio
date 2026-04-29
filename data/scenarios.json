@@ -1,0 +1,30 @@
+{
+  "burger": {
+    "shopName": "Restaurant — exemple",
+    "lines": [
+      { "who": "ai",   "text": "Bonjour, restaurant à votre écoute. En quoi puis-je vous aider ?" },
+      { "who": "user", "text": "Bonjour, je voudrais réserver une table pour ce soir." },
+      { "who": "ai",   "text": "Avec plaisir. Pour combien de personnes et à quelle heure ?" },
+      { "who": "user", "text": "Quatre personnes, vers 20 heures." },
+      { "who": "ai",   "text": "Une table pour quatre à 20 heures. À quel nom ?" },
+      { "who": "user", "text": "Au nom de Martin." },
+      { "who": "ai",   "text": "C'est noté. Souhaitez-vous être placé en salle ou en terrasse ?" },
+      { "who": "user", "text": "En salle, s'il vous plaît." },
+      { "who": "ai",   "text": "Parfait. Une confirmation vous sera envoyée par SMS. Bonne journée." }
+    ]
+  },
+  "tacos": {
+    "shopName": "Restauration rapide — exemple",
+    "lines": [
+      { "who": "ai",   "text": "Bonjour, en quoi puis-je vous aider ?" },
+      { "who": "user", "text": "Bonjour, je souhaite passer une commande pour un retrait." },
+      { "who": "ai",   "text": "Bien sûr. Pour quelle heure souhaitez-vous le retrait ?" },
+      { "who": "user", "text": "Vers 12h30." },
+      { "who": "ai",   "text": "Très bien, retrait prévu à 12h30. Que souhaitez-vous commander ?" },
+      { "who": "user", "text": "Un menu du jour et une boisson." },
+      { "who": "ai",   "text": "Un menu du jour et une boisson, soit 12 euros. À quel nom ?" },
+      { "who": "user", "text": "Au nom de Dupont." },
+      { "who": "ai",   "text": "C'est enregistré. Vous recevrez une confirmation par SMS. À tout à l'heure." }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+[
+  { "id": "C-1042", "time": "12:30", "client": "Client n°42", "status": "new",
+    "items": [{ "n": "Plat du jour", "q": 2 }, { "n": "Accompagnement", "q": 1 }, { "n": "Boisson", "q": 2 }] },
+  { "id": "C-1043", "time": "12:35", "client": "Client n°43", "status": "prep",
+    "items": [{ "n": "Sandwich", "q": 1 }, { "n": "Boisson", "q": 1 }] },
+  { "id": "C-1044", "time": "12:40", "client": "Client n°44", "status": "new",
+    "items": [{ "n": "Menu midi", "q": 2 }, { "n": "Accompagnement", "q": 1 }, { "n": "Boisson", "q": 2 }] },
+  { "id": "C-1045", "time": "12:45", "client": "Client n°45", "status": "prep",
+    "items": [{ "n": "Plat principal", "q": 2 }, { "n": "Accompagnement", "q": 2 }] },
+  { "id": "C-1041", "time": "12:20", "client": "Client n°41", "status": "done",
+    "items": [{ "n": "Plat du jour", "q": 1 }, { "n": "Accompagnement", "q": 1 }, { "n": "Boisson", "q": 1 }] },
+  { "id": "C-1046", "time": "12:50", "client": "Client n°46", "status": "new",
+    "items": [{ "n": "Menu midi", "q": 1 }, { "n": "Boisson", "q": 1 }] }
+]

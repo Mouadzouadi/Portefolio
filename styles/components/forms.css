@@ -1,0 +1,110 @@
+/* ============================================================
+   components/forms.css — modale + champs contact + utilitaires form
+   ============================================================ */
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field--full { grid-column: 1 / -1; }
+.field label {
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: color-mix(in oklab, var(--paper) 55%, transparent);
+}
+
+.field input,
+.field textarea {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid color-mix(in oklab, var(--paper) 25%, transparent);
+  padding: 10px 0; color: var(--paper);
+  font: inherit; font-size: 15px;
+  transition: border-color .25s var(--ease);
+}
+.field input:focus, .field textarea:focus {
+  outline: none; border-bottom-color: var(--gold);
+}
+.field textarea { resize: vertical; min-height: 80px; }
+.field input:invalid:not(:placeholder-shown) { border-bottom-color: var(--rose); }
+
+.field__actions {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; flex-wrap: wrap; margin-top: 6px;
+}
+.check {
+  display: inline-flex; gap: 10px; align-items: flex-start;
+  font-size: 13px; cursor: pointer;
+  color: color-mix(in oklab, var(--paper) 70%, transparent);
+}
+.check input { accent-color: var(--gold); margin-top: 2px; }
+
+/* ===== Modal ===== */
+.modal {
+  position: fixed; inset: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  visibility: hidden; opacity: 0;
+  transition: opacity .25s var(--ease), visibility .25s;
+}
+.modal.is-open { visibility: visible; opacity: 1; }
+.modal__backdrop {
+  position: absolute; inset: 0;
+  background: color-mix(in oklab, var(--ink) 65%, transparent);
+  backdrop-filter: blur(4px);
+}
+.modal__panel {
+  position: relative;
+  background: var(--paper);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--line);
+  width: 100%; max-width: 520px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  box-shadow: 0 50px 100px -30px rgba(0,0,0,.4);
+  transform: translateY(20px) scale(.98);
+  transition: transform .3s var(--ease);
+}
+.modal.is-open .modal__panel { transform: none; }
+.modal__head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--line);
+}
+.modal__head h3 {
+  margin: 0; font-family: var(--serif); font-weight: 500;
+  font-size: 22px; letter-spacing: -0.005em;
+}
+.modal__close {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: transparent; border: 1px solid var(--line); color: var(--ink);
+  font-size: 22px; line-height: 1; cursor: pointer;
+  transition: all .2s var(--ease);
+}
+.modal__close:hover {
+  background: var(--ink); color: var(--paper); border-color: var(--ink);
+}
+.modal__form { padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 16px; }
+.modal__form .field { display: flex; flex-direction: column; gap: 6px; }
+.modal__form .field label {
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: color-mix(in oklab, var(--ink) 60%, transparent);
+}
+.modal__form .field input {
+  background: #fff;
+  border: 1px solid var(--line); border-radius: 8px;
+  padding: 10px 12px; font: inherit; font-size: 14px;
+  color: var(--ink);
+}
+.modal__form .field input:focus {
+  outline: 2px solid var(--ink); outline-offset: 1px; border-color: var(--ink);
+}
+.field-row {
+  display: grid;
+  /* 2 colonnes par défaut, le 3ᵉ champ passe en pleine largeur dessous,
+     ce qui évite des inputs trop étroits qui débordent de la popup. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.field-row .field input { min-width: 0; width: 100%; }
+.field-row > .field:nth-child(3) { grid-column: 1 / -1; }
+.modal__actions {
+  display: flex; gap: 10px; justify-content: flex-end;
+  margin-top: 4px;
+}

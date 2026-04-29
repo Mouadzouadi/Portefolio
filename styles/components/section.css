@@ -1,0 +1,74 @@
+/* ============================================================
+   components/section.css — sections génériques + footer + grain
+   ============================================================ */
+
+.section {
+  padding: clamp(72px, 10vw, 140px) var(--pad);
+  max-width: var(--maxw); margin: 0 auto;
+}
+/* Variante large pour les démos qui ont besoin d'espace horizontal */
+.section--wide { max-width: 1440px; }
+.section--dark {
+  background: var(--ink); color: var(--paper);
+  max-width: none; padding-left: var(--pad); padding-right: var(--pad);
+}
+.section--soft { background: var(--paper-2); max-width: none; }
+.section--dark > *,
+.section--soft > * { max-width: var(--maxw); margin-left: auto; margin-right: auto; }
+.section--dark .eyebrow,
+.section--dark .section__sub {
+  color: color-mix(in oklab, var(--paper) 70%, transparent);
+}
+
+.section__head { max-width: 760px; margin-bottom: 56px; }
+
+.eyebrow {
+  display: inline-block;
+  font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+  color: color-mix(in oklab, var(--ink) 55%, transparent);
+  margin-bottom: 18px;
+}
+.eyebrow--small { margin-bottom: 10px; }
+
+.section__title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 1.1; letter-spacing: -0.015em;
+  margin: 0 0 18px;
+}
+.section__title em { font-style: italic; font-weight: 400; }
+.section__sub {
+  font-size: clamp(15px, 1.2vw, 17px);
+  color: color-mix(in oklab, var(--ink) 70%, transparent);
+  max-width: 65ch; margin: 0;
+}
+
+/* ===== Footer ===== */
+.footer {
+  padding: 48px var(--pad) 32px;
+  background: var(--ink-2);
+  color: color-mix(in oklab, var(--paper) 70%, transparent);
+}
+.footer__top {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 24px; flex-wrap: wrap;
+  max-width: var(--maxw); margin: 0 auto;
+  padding-bottom: 32px;
+  border-bottom: 1px solid color-mix(in oklab, var(--paper) 12%, transparent);
+}
+.footer__brand { display: flex; align-items: center; gap: 14px; }
+.footer__brand img { width: 58px; height: 58px; border-radius: 14px; background: var(--paper-2); padding: 6px; object-fit: contain; }
+.footer__brand strong {
+  font-family: var(--serif); font-weight: 500; font-size: 20px;
+  color: var(--paper); display: block;
+}
+.footer__brand span { font-size: 12px; }
+.footer__nav { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer__nav a { font-size: 13px; transition: color .25s var(--ease); }
+.footer__nav a:hover { color: var(--paper); }
+.footer__bottom {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  max-width: var(--maxw); margin: 24px auto 0;
+  font-size: 12px;
+  color: color-mix(in oklab, var(--paper) 50%, transparent);
+}

@@ -1,0 +1,14 @@
+[
+  { "name": "Steak haché 150g",       "cat": "Viande",      "stock": 38,  "max": 80,  "threshold": 25 },
+  { "name": "Filet de poulet pané",   "cat": "Viande",      "stock": 12,  "max": 60,  "threshold": 20 },
+  { "name": "Pain burger brioché",    "cat": "Pain",        "stock": 45,  "max": 120, "threshold": 40 },
+  { "name": "Pain burger céréales",   "cat": "Pain",        "stock": 8,   "max": 80,  "threshold": 25 },
+  { "name": "Galette tacos M",        "cat": "Pain",        "stock": 30,  "max": 100, "threshold": 35 },
+  { "name": "Frites surgelées (kg)",  "cat": "Surgelés",    "stock": 22,  "max": 50,  "threshold": 15 },
+  { "name": "Cheddar tranches",       "cat": "Frais",       "stock": 5,   "max": 40,  "threshold": 12 },
+  { "name": "Sauce algérienne (L)",   "cat": "Sauces",      "stock": 9,   "max": 20,  "threshold": 6 },
+  { "name": "Coca-Cola 33cl",         "cat": "Boissons",    "stock": 64,  "max": 120, "threshold": 30 },
+  { "name": "Oasis tropical 33cl",    "cat": "Boissons",    "stock": 4,   "max": 60,  "threshold": 18 },
+  { "name": "Emballages burger",      "cat": "Emballages",  "stock": 180, "max": 500, "threshold": 150 },
+  { "name": "Sachets frites",         "cat": "Emballages",  "stock": 28,  "max": 200, "threshold": 60 }
+]

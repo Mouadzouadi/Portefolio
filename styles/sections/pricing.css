@@ -1,0 +1,106 @@
+/* ============================================================
+   sections/pricing.css — section tarifs
+   ============================================================ */
+
+.pricing {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Grille 2 cartes de même hauteur */
+.pricing__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+/* Carte */
+.pricing__card {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: clamp(28px, 3vw, 40px);
+}
+
+.pricing__card--featured {
+  background: var(--ink-2);
+  border-color: var(--gold);
+  color: var(--paper);
+}
+
+/* En-tête — hauteur fixe pour aligner le trait de séparation entre les cartes */
+.pricing__card-head {
+  min-height: 92px;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.pricing__name {
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 500;
+  line-height: 1.15;
+  margin: 0 0 10px;
+}
+
+.pricing__target {
+  font-size: 14px;
+  line-height: 1.5;
+  color: color-mix(in oklab, var(--ink) 55%, transparent);
+  margin: 0;
+}
+
+.pricing__card--featured .pricing__target {
+  color: color-mix(in oklab, var(--paper) 65%, transparent);
+}
+
+/* Liste des avantages */
+.pricing__list {
+  list-style: none;
+  margin: 0 0 32px;
+  padding: 24px 0 0;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.pricing__card--featured .pricing__list {
+  border-top-color: color-mix(in oklab, var(--paper) 18%, transparent);
+}
+
+.pricing__list li {
+  position: relative;
+  padding-left: 26px;
+}
+
+.pricing__list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* CTA pleine largeur en bas */
+.pricing__card .btn {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .pricing__grid { grid-template-columns: 1fr; }
+}

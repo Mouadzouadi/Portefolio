@@ -1,0 +1,83 @@
+/* ============================================================
+   components/mockup.css — chrome navigateur + bloc démo générique
+   ============================================================ */
+
+/* ===== Bloc démo (intro sticky + mockup) ===== */
+.demo {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.7fr) minmax(0, 1.6fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: start;
+  margin-top: clamp(60px, 8vw, 100px);
+}
+/* Variante "empilée" : intro en haut, mockup pleine largeur dessous.
+   Utilisée quand le contenu du mockup a besoin d'horizontalité
+   (kanban commandes). */
+.demo--stacked {
+  grid-template-columns: 1fr;
+}
+.demo--stacked .demo__intro {
+  position: static;
+  max-width: 720px;
+  margin-bottom: clamp(20px, 3vw, 36px);
+}
+.demo__intro {
+  position: sticky; top: 110px;
+  align-self: start;
+}
+.demo--reverse {
+  grid-template-columns: minmax(0, 1.6fr) minmax(240px, 0.7fr);
+}
+.demo--reverse > .demo__intro { order: 2; }
+.demo__intro h3 {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(22px, 2.4vw, 28px); line-height: 1.2;
+  margin: 0 0 14px; letter-spacing: -0.005em;
+}
+.demo__intro p {
+  color: color-mix(in oklab, var(--ink) 75%, transparent);
+  margin: 0 0 18px;
+}
+.demo__bullets { list-style: none; padding: 0; margin: 0; }
+.demo__bullets li {
+  font-size: 14px; padding: 8px 0;
+  position: relative; padding-left: 22px;
+  color: color-mix(in oklab, var(--ink) 80%, transparent);
+}
+.demo__bullets li::before {
+  content: "→"; position: absolute; left: 0;
+  color: var(--gold); font-family: var(--serif);
+}
+
+/* ===== Mockup chrome (faux navigateur) ===== */
+.mockup {
+  background: #fff;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--line);
+  box-shadow:
+    0 30px 60px -30px color-mix(in oklab, var(--ink) 30%, transparent),
+    0 1px 0 0 color-mix(in oklab, var(--ink) 6%, transparent);
+  overflow: hidden;
+}
+.mockup__chrome {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px;
+  background: var(--paper-2);
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+  color: color-mix(in oklab, var(--ink) 55%, transparent);
+}
+.mockup__chrome span {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: color-mix(in oklab, var(--ink) 18%, transparent);
+}
+.mockup__chrome em {
+  font-style: normal; margin-left: 12px; letter-spacing: .04em;
+  font-family: var(--sans);
+}
+.mockup__body {
+  padding: clamp(14px, 2.5vw, 22px);
+  /* Pas de scroll horizontal : on préfère que les contenus s'adaptent.
+     Les sections internes gèrent leur propre wrap / hide-columns. */
+  overflow-x: hidden;
+}
