@@ -1,6 +1,6 @@
 # ZM Solutions — Site portfolio
 
-Site web statique, épuré et sophistiqué, pour présenter **ZM Solutions** (Zouadi Mouad), studio de digitalisation et d'IA pour les commerces de Blois.
+Site web statique, épuré et sophistiqué, pour présenter **ZM Solutions** (Zouadi Mouad), studio de digitalisation et d'IA pour les commerces de proximité.
 
 ## Structure
 
@@ -35,7 +35,7 @@ ou avec l'extension VS Code **Live Server** : clic droit sur `index.html` → *O
 
 1. **Hero** éditorial — qui vous êtes, ce que vous proposez, KPI clés.
 2. **Proposition de valeur** — 3 cartes : agent vocal, web métier, accompagnement local.
-3. **Démo Agent Vocal interactive** — 3 commerces fictifs de Blois (Mouad's Burger, Tacos de Loire, Boulangerie de Blois). Bouton *Démarrer l'appel* qui joue une conversation animée (waveform, transcription en bulles, statut, timer).
+3. **Démo Agent Vocal interactive** — 3 commerces fictifs (restaurant, boulangerie, coiffeur). Bouton *Démarrer l'appel* qui joue une conversation animée (waveform, transcription en bulles, statut, timer).
 4. **Web métier** — 2 démos cliquables :
    - **Gestion de stock** : tableau live avec recherche, alertes colorées, bouton *Réappro*.
    - **Préparation Click & Collect** : grille de commandes filtrable, items cochables, workflow `Nouvelle → En préparation → Prête`.
@@ -81,4 +81,4 @@ Le site étant 100 % statique, tout hébergeur convient :
 
 ---
 
-Conçu & développé pour Zouadi Mouad — Blois, 2026.
+Conçu & développé pour Zouadi Mouad — 2026.

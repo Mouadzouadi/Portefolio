@@ -18,7 +18,7 @@
   --amber:      #c98a2b;
 
   /* Typographie */
-  --serif: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+  --serif: 'Playfair Display', 'EB Garamond', Georgia, serif;
   --sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   /* Layout */

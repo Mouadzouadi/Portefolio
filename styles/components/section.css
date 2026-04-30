@@ -36,7 +36,7 @@
   line-height: 1.1; letter-spacing: -0.015em;
   margin: 0 0 18px;
 }
-.section__title em { font-style: italic; font-weight: 400; }
+.section__title em { font-style: normal; font-weight: 500; color: color-mix(in oklab, var(--ink) 65%, var(--gold)); }
 .section__sub {
   font-size: clamp(15px, 1.2vw, 17px);
   color: color-mix(in oklab, var(--ink) 70%, transparent);

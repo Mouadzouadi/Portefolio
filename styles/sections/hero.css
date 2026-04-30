@@ -41,7 +41,7 @@
   display: flex; flex-direction: column; gap: 2px;
 }
 .hero__sig-line {
-  font-family: var(--serif); font-style: italic; font-weight: 400;
+  font-family: var(--serif); font-style: normal; font-weight: 500;
   font-size: 28px; letter-spacing: -0.01em;
   color: var(--ink);
 }
@@ -80,7 +80,7 @@
 }
 .hero__lede strong { color: var(--ink); font-weight: 600; }
 .hero__lede em {
-  font-style: italic;
+  font-style: normal;
   color: color-mix(in oklab, var(--ink) 70%, var(--gold));
 }
 
