@@ -17,7 +17,6 @@ import { initReveal }  from './modules/reveal.js';
 import { initAgent }   from './modules/agent.js?v=6';
 import { initStock }   from './modules/stock.js';
 import { initOrders }  from './modules/orders.js';
-import { initLoyalty } from './modules/loyalty.js';
 import { initShop }    from './modules/shop.js';
 import { initContact } from './modules/contact.js';
 
@@ -28,11 +27,10 @@ function safeInit(name, fn) {
 }
 
 async function main() {
-  // Chrome statique : nav, animations, formulaire, agent vocal, fidélité.
+  // Chrome statique : nav, animations, formulaire, agent vocal.
   safeInit('nav', initNav);
   safeInit('reveal', initReveal);
   safeInit('contact', initContact);
-  safeInit('loyalty', initLoyalty);
   safeInit('agent', initAgent);
 
   // Chargement parallèle des données — chaque échec est local.

@@ -72,3 +72,7 @@
   font-size: 12px;
   color: color-mix(in oklab, var(--paper) 50%, transparent);
 }
+
+/* Esperluette des noms propres (Procter & Gamble, Click & Collect) : celle de la police
+   de titres ne ressemble pas à un « et ». */
+.amp { font-family: var(--sans); font-style: normal; font-weight: inherit; }
