@@ -10,6 +10,11 @@ Portefolio/
 ├── logo.png / photo.jpg    ← visuels (favicon, header, hero, footer)
 ├── data/                   ← données des démos (stock, orders, menu)
 ├── styles/                 ← design system modulaire (base / components / sections)
+├── api/                    ← PHP hébergé avec le site (démo vocale, secours WhatsApp)
+│   ├── retell-web-call.php ← crée l'appel Retell (remplace le webhook n8n)
+│   ├── whatsapp-offline.php← réponse de secours si le bot WhatsApp ne répond pas
+│   ├── config.php          ← clé Retell (NON versionné, à créer sur l'hébergement)
+│   └── config.example.php  ← modèle sans secret
 ├── scripts/
 │   ├── main.js             ← orchestration des modules
 │   ├── config.js           ← secrets + pré-prompts de l'agent (NON versionné)
@@ -19,9 +24,10 @@ Portefolio/
 └── README.md
 ```
 
-> ⚠️ `scripts/config.js` contient l'URL du webhook n8n et les identifiants
-> d'agents Retell : il est ignoré par Git. Copiez `config.example.js` en
-> `config.js` puis renseignez vos valeurs.
+> ⚠️ `scripts/config.js` (identifiants d'agents, pré-prompts) et `api/config.php`
+> (clé API Retell) sont ignorés par Git. Copiez les fichiers `*.example.*` puis
+> renseignez vos valeurs. La clé Retell ne doit jamais aller dans `scripts/` :
+> tout ce dossier est téléchargeable par les visiteurs.
 
 ## Lancer le site en local
 
@@ -43,9 +49,14 @@ ou avec l'extension VS Code **Live Server** : clic droit sur `index.html` → *O
 
 1. **Hero** éditorial — qui vous êtes, ce que vous proposez, KPI clés.
 2. **Proposition de valeur** — 3 cartes : agent vocal, web métier, accompagnement local.
-3. **Démo Agent Vocal interactive** — agent vocal réel branché sur **Retell** (via un
-   webhook **n8n**). 3 cas d'usage (restauration rapide, coiffeur, hôtel) avec
-   pré-prompt éditable et transcription en direct (bulles agent / client).
+3. **Démo Agent Vocal interactive** — agent vocal réel branché sur **Retell** via
+   `api/retell-web-call.php` (fonctionne sans le PC de développement). 3 cas d'usage
+   avec pré-prompt éditable et transcription en direct. Garde-fous : agents autorisés,
+   origine du site, 4 appels par heure et par IP, 40 par jour (`api/config.php`).
+3 bis. **Démo WhatsApp** (`#whatsapp`) — bouton « Ouvrir WhatsApp » (lien `wa.me`
+   avec message prérempli), lien WhatsApp Web pour un ordinateur sans l'application,
+   QR code (SVG intégré, aucun service tiers) et aperçu de conversation. Sur téléphone,
+   seul le bouton est affiché. Le numéro est celui du restaurant de démonstration.
 4. **Web métier** — 2 démos cliquables :
    - **Gestion de stock** : tableau live avec recherche, alertes colorées, bouton *Réappro*.
    - **Préparation Click & Collect** : grille de commandes filtrable, items cochables, workflow `Nouvelle → En préparation → Prête`.
@@ -77,7 +88,17 @@ ou avec l'extension VS Code **Live Server** : clic droit sur `index.html` → *O
 
 ## Déploiement
 
-Le site étant 100 % statique, tout hébergeur convient :
+Hébergement actuel : Infomaniak (Apache + PHP).
+
+1. Envoyer tous les fichiers, dont le dossier `api/` (avec son `.htaccess`).
+2. Sur l'hébergement, copier `api/config.example.php` en `api/config.php` et y mettre la
+   clé API Retell (tableau de bord Retell › API Keys) et un sel aléatoire.
+3. Vérifier `https://zmsolutions.fr/api/retell-web-call.php` : une visite directe doit
+   répondre `{"error":"POST uniquement"}`, et `api/config.php` doit être refusé (403).
+4. Optionnel : chez Twilio, mettre `https://zmsolutions.fr/api/whatsapp-offline.php` en
+   *Fallback URL* de l'expéditeur WhatsApp (message clair si le bot ne répond pas).
+
+Sans PHP, le reste du site est 100 % statique et tout hébergeur convient :
 
 - **Vercel** / **Netlify** — déposez le dossier, c'est en ligne en 30 secondes.
 - **GitHub Pages** — push sur un repo, activer Pages.

@@ -19,7 +19,7 @@
  * en distinguant le rôle `agent` (IA) du rôle `user` (client).
  */
 import { $, $$ } from '../utils/dom.js';
-import { WEBHOOK_URL, RETELL_SDK_URL, USE_CASES } from '../config.js';
+import { WEBHOOK_URL, RETELL_SDK_URL, USE_CASES } from '../config.js?v=6';
 
 const BAR_COUNT = 32;
 
@@ -237,7 +237,13 @@ export function initAgent() {
     });
 
     if (!res.ok) {
-      throw new Error(`Le service a répondu ${res.status}. Réessayez dans un instant.`);
+      // Messages lisibles pour un prospect (voir api/retell-web-call.php).
+      const MESSAGES = {
+        429: 'vous avez atteint la limite d’essais pour le moment. Écrivez-moi ou appelez-moi pour une démo complète.',
+        503: 'la démo vocale est momentanément en pause. Écrivez-moi pour une démo en direct.',
+        502: 'le service vocal ne répond pas. Réessayez dans un instant.',
+      };
+      throw new Error(MESSAGES[res.status] || `le service a répondu ${res.status}. Réessayez dans un instant.`);
     }
 
     const data = await res.json().catch(() => ({}));

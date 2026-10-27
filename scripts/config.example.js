@@ -7,8 +7,8 @@
  * versionné sans risque.
  */
 
-/** Webhook n8n qui génère et renvoie l'access_token Retell. */
-export const WEBHOOK_URL = 'https://EXEMPLE-N8N/webhook/retell-web-call';
+/** Endpoint PHP du site (api/retell-web-call.php) qui crée l'appel Retell et renvoie l'access_token. */
+export const WEBHOOK_URL = 'api/retell-web-call.php';
 
 /** SDK Retell (ESM via CDN) — à changer seulement si besoin. */
 export const RETELL_SDK_URL = 'https://esm.sh/retell-client-js-sdk@2';

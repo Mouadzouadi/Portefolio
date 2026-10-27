@@ -1,2 +1,3 @@
 # Secrets locaux de l'agent vocal — ne pas versionner
 scripts/config.js
+api/config.php

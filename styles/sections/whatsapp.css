@@ -1,0 +1,130 @@
+/* ============================================================
+   sections/whatsapp.css — démo commande WhatsApp (lien, QR code, aperçu)
+   ============================================================ */
+
+.wa {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+}
+
+/* --- Colonne « essayer » --- */
+.wa__steps {
+  list-style: none; counter-reset: wa; padding: 0; margin: 0 0 32px;
+  display: grid; gap: 14px;
+}
+.wa__steps li {
+  counter-increment: wa;
+  position: relative; padding-left: 46px;
+  color: color-mix(in oklab, var(--ink) 75%, transparent);
+  line-height: 1.55;
+}
+.wa__steps li::before {
+  content: counter(wa);
+  position: absolute; left: 0; top: -2px;
+  width: 30px; height: 30px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--serif); font-size: 15px;
+  color: var(--ink); background: var(--paper-2);
+  border: 1px solid var(--line);
+}
+.wa__steps strong { color: var(--ink); font-weight: 600; }
+
+.wa__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+.wa__open svg { width: 20px; height: 20px; }
+.wa__web {
+  font-size: 14px;
+  color: color-mix(in oklab, var(--ink) 65%, transparent);
+  text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-color: var(--gold);
+}
+.wa__web:hover { color: var(--ink); }
+
+.wa__qr {
+  margin: 30px 0 0;
+  display: flex; align-items: center; gap: 18px;
+}
+.wa__qr svg {
+  width: 132px; height: 132px; flex: none;
+  padding: 12px; background: #fff;
+  border-radius: var(--r); border: 1px solid var(--line);
+  box-shadow: 0 10px 30px rgba(12, 19, 32, .08);
+}
+.wa__qr figcaption {
+  max-width: 190px; font-size: 14px; line-height: 1.5;
+  color: color-mix(in oklab, var(--ink) 65%, transparent);
+}
+
+.wa__note {
+  margin-top: 28px; padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-size: 13px; line-height: 1.6;
+  color: color-mix(in oklab, var(--ink) 58%, transparent);
+}
+
+/* --- Aperçu de conversation --- */
+.wa__phone {
+  justify-self: center;
+  width: min(100%, 360px);
+  background: #efe7da;
+  border: 8px solid var(--ink);
+  border-radius: 34px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(12, 19, 32, .18);
+}
+.wa__bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px;
+  background: var(--ink); color: var(--paper);
+  font-size: 14px;
+}
+.wa__bar small { display: block; font-size: 11px; opacity: .65; }
+.wa__avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--gold); color: var(--ink);
+  font-size: 12px; font-weight: 700;
+}
+.wa__chat { padding: 16px 12px 20px; display: grid; gap: 8px; }
+.msg {
+  margin: 0; max-width: 86%;
+  padding: 9px 12px; border-radius: 12px 12px 12px 4px;
+  background: #fff; color: #1c1c1c;
+  font-size: 13.5px; line-height: 1.45;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .06);
+}
+.msg--me {
+  justify-self: end;
+  background: #d9f4c7;
+  border-radius: 12px 12px 4px 12px;
+}
+.msg__btn,
+.msg__btns span {
+  display: block; margin-top: 8px; padding-top: 7px;
+  border-top: 1px solid #ececec;
+  text-align: center; color: #0b7a62; font-weight: 600; font-size: 13px;
+}
+.msg__btns { display: block; }
+.msg__btns span + span { margin-top: 0; }
+
+/* Apparition douce des bulles quand la section devient visible. */
+@media (prefers-reduced-motion: no-preference) {
+  .wa__chat .msg { animation: waIn .5s var(--ease) both; }
+  .wa__chat .msg:nth-child(2) { animation-delay: .15s; }
+  .wa__chat .msg:nth-child(3) { animation-delay: .3s; }
+  .wa__chat .msg:nth-child(4) { animation-delay: .45s; }
+  .wa__chat .msg:nth-child(5) { animation-delay: .6s; }
+  .wa__chat .msg:nth-child(6) { animation-delay: .75s; }
+}
+@keyframes waIn { from { opacity: 0; transform: translateY(8px); } }
+
+/* --- Téléphone : le bouton suffit, pas de QR code à scanner sur son propre écran --- */
+@media (max-width: 860px) {
+  .wa { grid-template-columns: 1fr; }
+  .wa__phone { order: -1; }
+}
+@media (hover: none) and (pointer: coarse) {
+  .wa__qr, .wa__web { display: none; }
+  .wa__open { width: 100%; justify-content: center; }
+}
