@@ -1,14 +1,35 @@
 /**
- * Démo agent vocal : déroule un scénario téléphonique scénarisé,
- * avec waveform animée, statut, timer et bulles de transcription.
+ * Agent vocal en direct — intégration Retell Web SDK + n8n.
+ *
+ * Flux :
+ *   1. L'utilisateur choisit un cas d'usage  → le textarea se remplit
+ *      d'un prompt système de base (modifiable en direct).
+ *   2. Au clic sur « Démarrer l'appel », on POST le prompt (modifié)
+ *      + l'identifiant de l'agent vers le webhook n8n.
+ *   3. n8n renvoie un `access_token` Retell généré dynamiquement.
+ *   4. On démarre l'appel web : retellClient.startCall({ accessToken }).
+ *   5. La transcription arrive en direct via les événements du SDK et
+ *      s'affiche en bulles dans la zone de chat à gauche.
+ *   6. Fin d'appel (`call_ended` ou « Raccrocher ») → nettoyage + message.
+ *
+ * NB transcription : le SDK Retell officiel expose la transcription en
+ * direct via l'événement `update` (un tableau de tours { role, content }).
+ * Les « agent_transcript / user_transcript » demandés correspondent à ce
+ * flux : on lit donc `update.transcript` et on rend une bulle par tour,
+ * en distinguant le rôle `agent` (IA) du rôle `user` (client).
  */
 import { $, $$ } from '../utils/dom.js';
+import { WEBHOOK_URL, RETELL_SDK_URL, USE_CASES } from '../config.js';
 
 const BAR_COUNT = 32;
 
-export function initAgent(scenarios) {
+/* ============================================================
+   MODULE
+   ============================================================ */
+
+export function initAgent() {
   const agent = $('.agent');
-  if (!agent || !scenarios) return;
+  if (!agent) return;
 
   const els = {
     dot:        $('#agentDot'),
@@ -17,19 +38,43 @@ export function initAgent(scenarios) {
     shop:       $('#agentShop'),
     caption:    $('#agentCaption'),
     transcript: $('#agentTranscript'),
+    prompt:     $('#agentPrompt'),
+    promptPreview: $('#agentPromptOpen'),
+    promptText:    $('#agentPromptText'),
+    promptModal:   $('#promptModal'),
     startBtn:   $('#agentStart'),
     stopBtn:    $('#agentStop'),
     waveBars:   $('#waveBars'),
-    chips:      $$('.agent__choices .chip'),
+    choices:    $('.agent__choices'),
   };
 
-  let currentShop = 'burger';
+  // Clés des cas d'usage (l'ordre de config.js fait foi).
+  const useCaseKeys = Object.keys(USE_CASES);
+  if (useCaseKeys.length === 0) {
+    console.error('[agent] Aucun cas d\'usage défini dans config.js (USE_CASES).');
+    return;
+  }
+
+  // Génération des boutons à partir de la config (1 bouton par cas d'usage).
+  els.choices.innerHTML = '';
+  useCaseKeys.forEach((key, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'chip' + (i === 0 ? ' is-active' : '');
+    btn.setAttribute('role', 'tab');
+    btn.dataset.usecase = key;
+    btn.textContent = USE_CASES[key].label;
+    els.choices.appendChild(btn);
+  });
+  const chips = $$('.agent__choices .chip');
+
+  let currentUseCase = useCaseKeys[0];
   let running = false;
-  let timeouts = [];
+  let client = null;          // instance RetellWebClient
+  let RetellWebClient = null; // classe SDK (chargée à la demande)
   let secInt = null;
   let waveTick = null;
 
-  // Construction de la waveform SVG
+  /* ---------- Waveform SVG ---------- */
   const bars = [];
   for (let i = 0; i < BAR_COUNT; i++) {
     const r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
@@ -60,36 +105,93 @@ export function initAgent(scenarios) {
     bars.forEach((b) => { b.setAttribute('height', 10); b.setAttribute('y', 55); });
   };
 
+  /* ---------- UI helpers ---------- */
   function setStatus(label, state) {
     els.status.textContent = label;
     els.dot.className = 'dot';
     els.dot.classList.add(`dot--${state || 'idle'}`);
   }
 
+  function toggleControls(active) {
+    els.startBtn.disabled = active;
+    els.stopBtn.disabled = !active;
+    els.prompt.disabled = active;
+    chips.forEach((c) => (c.disabled = active));
+    agent.classList.toggle('is-active', active);
+  }
+
   function resetTranscript() {
     els.transcript.innerHTML = `
       <div class="agent__placeholder">
         <p>La transcription apparaîtra ici, en direct.</p>
-        <small>Démo scénarisée — la production utilise une vraie API vocale (Vapi / Retell / OpenAI Realtime).</small>
+        <small>Choisissez un cas d'usage, ajustez le prompt, puis lancez l'appel.</small>
       </div>`;
-    els.caption.textContent = 'Appuyez sur le bouton pour démarrer la simulation.';
+    els.caption.textContent = "Appuyez sur le bouton pour démarrer l'appel.";
   }
 
-  function appendBubble(line) {
-    const div = document.createElement('div');
-    div.className = `bubble bubble--${line.who}`;
-    div.innerHTML = `<span class="bubble__role">${line.who === 'ai' ? 'Agent IA' : 'Client'}</span>${line.text}`;
-    els.transcript.appendChild(div);
+  function appendSystemNote(text) {
+    const note = document.createElement('div');
+    note.className = 'agent__placeholder';
+    const p = document.createElement('p');
+    p.textContent = text;
+    note.appendChild(p);
+    els.transcript.appendChild(note);
     els.transcript.scrollTop = els.transcript.scrollHeight;
   }
 
-  function appendTyping(who) {
-    const div = document.createElement('div');
-    div.className = `bubble bubble--${who} bubble--typing`;
-    div.innerHTML = `<span></span><span></span><span></span>`;
-    els.transcript.appendChild(div);
-    els.transcript.scrollTop = els.transcript.scrollHeight;
-    return div;
+  /**
+   * Rend toute la transcription en bulles.
+   * `transcript` = tableau de tours { role: 'agent'|'user', content: string }.
+   * Rendu incrémental : on ne reconstruit que ce qui change (nouveau tour
+   * ou texte du dernier tour qui s'allonge), pour éviter tout « saut ».
+   */
+  function renderTranscript(transcript) {
+    const bubbles = els.transcript.querySelectorAll('.bubble');
+
+    transcript.forEach((turn, i) => {
+      const who = turn.role === 'agent' ? 'ai' : 'user';
+      const roleLabel = who === 'ai' ? 'Agent IA' : 'Client';
+      let bubble = bubbles[i];
+
+      // Nouveau tour → on crée la bulle (avec animation d'apparition).
+      if (!bubble) {
+        bubble = document.createElement('div');
+        bubble.className = `bubble bubble--${who}`;
+        bubble.dataset.who = who;
+        const role = document.createElement('span');
+        role.className = 'bubble__role';
+        role.textContent = roleLabel;
+        const text = document.createElement('span');
+        text.className = 'bubble__text';
+        bubble.appendChild(role);
+        bubble.appendChild(text);
+        els.transcript.appendChild(bubble);
+      } else if (bubble.dataset.who !== who) {
+        // Le rôle de ce tour a changé → on resynchronise classe + label.
+        bubble.className = `bubble bubble--${who}`;
+        bubble.dataset.who = who;
+        bubble.querySelector('.bubble__role').textContent = roleLabel;
+      }
+
+      // Mise à jour du texte uniquement s'il a changé (pas de ré-animation).
+      const textEl = bubble.querySelector('.bubble__text');
+      const content = turn.content || '';
+      if (textEl.textContent !== content) textEl.textContent = content;
+    });
+
+    // Si la nouvelle transcription a moins de tours, retirer les bulles en trop.
+    for (let i = transcript.length; i < bubbles.length; i++) {
+      bubbles[i].remove();
+    }
+
+    autoScroll();
+  }
+
+  /** Défile vers le bas uniquement si l'utilisateur est déjà proche du bas. */
+  function autoScroll() {
+    const el = els.transcript;
+    const nearBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 80;
+    if (nearBottom) el.scrollTop = el.scrollHeight;
   }
 
   function startTimer() {
@@ -103,86 +205,193 @@ export function initAgent(scenarios) {
     }, 1000);
   }
 
-  function clearAll() {
-    timeouts.forEach((t) => clearTimeout(t));
-    timeouts = [];
+  function clearTimers() {
     if (secInt) { clearInterval(secInt); secInt = null; }
     stopWave();
   }
 
-  function runScenario() {
-    const lines = scenarios[currentShop].lines;
-    let i = 0;
+  /* ---------- SDK + n8n ---------- */
 
-    const next = () => {
-      if (!running || i >= lines.length) {
-        if (running) endCall(true);
-        return;
-      }
-      const line = lines[i];
-      const isAi = line.who === 'ai';
-
-      setStatus(isAi ? 'Agent parle…' : 'Client parle…', 'live');
-      els.caption.textContent = isAi ? "L'agent répond" : 'Le client formule sa demande';
-      startWave(isAi ? 1.1 : 0.7);
-
-      const typing = appendTyping(line.who);
-      const dur = Math.min(3800, 700 + line.text.length * 28);
-
-      timeouts.push(setTimeout(() => {
-        typing.remove();
-        appendBubble(line);
-        i++;
-        stopWave();
-        timeouts.push(setTimeout(next, 450));
-      }, dur));
-    };
-
-    timeouts.push(setTimeout(next, 300));
+  /** Charge le SDK Retell à la demande (évite de casser la page si le CDN échoue). */
+  async function loadRetellSDK() {
+    if (RetellWebClient) return RetellWebClient;
+    const mod = await import(/* @vite-ignore */ RETELL_SDK_URL);
+    RetellWebClient = mod.RetellWebClient;
+    if (!RetellWebClient) throw new Error('SDK Retell introuvable (export RetellWebClient).');
+    return RetellWebClient;
   }
 
-  function startCall() {
+  /**
+   * Envoie le prompt (modifié par l'utilisateur) + l'agent_id à n8n,
+   * et récupère l'access_token Retell renvoyé.
+   */
+  async function requestAccessToken(useCase) {
+    const res = await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        agentId: USE_CASES[useCase].agentId,
+        use_case: useCase,
+        prompt: els.prompt.value.trim(),
+      }),
+    });
+
+    if (!res.ok) {
+      throw new Error(`Le service a répondu ${res.status}. Réessayez dans un instant.`);
+    }
+
+    const data = await res.json().catch(() => ({}));
+    const accessToken = data.access_token || data.accessToken || data.token;
+    if (!accessToken) {
+      throw new Error('Impossible de récupérer la session. Réessayez dans un instant.');
+    }
+    return { accessToken, callId: data.call_id || data.callId };
+  }
+
+  /** Branche les écouteurs d'événements du SDK Retell. */
+  function wireEvents() {
+    client.on('call_started', () => {
+      setStatus('En communication', 'live');
+      els.caption.textContent = "Parlez : l'agent vous écoute.";
+      startTimer();
+    });
+
+    client.on('agent_start_talking', () => {
+      setStatus('Agent parle…', 'live');
+      startWave(1.1);
+    });
+
+    client.on('agent_stop_talking', () => {
+      setStatus('À vous…', 'live');
+      stopWave();
+    });
+
+    // Transcription en direct (agent + utilisateur).
+    client.on('update', (update) => {
+      if (update && Array.isArray(update.transcript)) {
+        renderTranscript(update.transcript);
+      }
+    });
+
+    client.on('call_ended', () => endCall(true));
+
+    client.on('error', (err) => {
+      console.error('[agent] Retell error', err);
+      endCall(false, "Une erreur est survenue pendant l'appel.");
+    });
+  }
+
+  /* ---------- Cycle d'appel ---------- */
+
+  async function startCall() {
     if (running) return;
     running = true;
+    toggleControls(true);
     els.transcript.innerHTML = '';
-    agent.classList.add('is-active');
-    els.startBtn.disabled = true;
-    els.stopBtn.disabled = false;
-    els.chips.forEach((c) => (c.disabled = true));
-
     setStatus('Connexion…', 'call');
-    els.caption.textContent = `Appel en cours vers ${scenarios[currentShop].shopName}…`;
+    els.caption.textContent = "Préparation de l'appel…";
 
-    timeouts.push(setTimeout(() => {
-      setStatus('En communication', 'live');
-      startTimer();
-      runScenario();
-    }, 1100));
+    try {
+      const SDK = await loadRetellSDK();
+      const { accessToken } = await requestAccessToken(currentUseCase);
+
+      client = new SDK();
+      wireEvents();
+
+      // Compatibilité : startCall (API actuelle) ou startWebCall (ancienne).
+      if (typeof client.startCall === 'function') {
+        await client.startCall({ accessToken });
+      } else {
+        await client.startWebCall({ accessToken });
+      }
+    } catch (err) {
+      console.error('[agent]', err);
+      setStatus('Erreur', 'idle');
+      els.caption.textContent = `Impossible de démarrer l'appel : ${err.message}`;
+      running = false;
+      clearTimers();
+      cleanupClient();
+      toggleControls(false);
+    }
   }
 
-  function endCall(natural = false) {
+  function cleanupClient() {
+    if (!client) return;
+    try {
+      if (typeof client.stopCall === 'function') client.stopCall();
+      else if (typeof client.stopWebCall === 'function') client.stopWebCall();
+    } catch (_) { /* ignore */ }
+    try { client.removeAllListeners?.(); } catch (_) { /* ignore */ }
+    client = null;
+  }
+
+  function endCall(natural, message) {
+    if (!running && !client) return;
     running = false;
-    clearAll();
-    agent.classList.remove('is-active');
-    els.startBtn.disabled = false;
-    els.stopBtn.disabled = true;
-    els.chips.forEach((c) => (c.disabled = false));
+    clearTimers();
+    cleanupClient();
+    toggleControls(false);
     setStatus(natural ? 'Appel terminé' : 'Raccroché', 'idle');
-    els.caption.textContent = natural
-      ? 'Conversation terminée. La commande est transmise au commerce.'
-      : 'Vous avez interrompu la simulation.';
+
+    const note = message
+      || (natural
+        ? "Appel terminé — merci d'avoir testé l'agent."
+        : "Vous avez raccroché.");
+    els.caption.textContent = note;
+    appendSystemNote(`— ${note} —`);
   }
 
-  els.chips.forEach((c) =>
+  /* ---------- Sélecteur de cas d'usage ---------- */
+  function updatePromptPreview() {
+    if (els.promptText) els.promptText.textContent = els.prompt.value;
+  }
+
+  function selectUseCase(useCase) {
+    const cfg = USE_CASES[useCase] || {};
+    currentUseCase = useCase;
+    els.prompt.value = cfg.prompt || '';
+    els.shop.textContent = cfg.shopName || '';
+    updatePromptPreview();
+    resetTranscript();
+  }
+
+  /* ---------- Popup d'édition du prompt ---------- */
+  function openPromptModal() {
+    if (running || !els.promptModal) return;
+    els.promptModal.classList.add('is-open');
+    els.promptModal.setAttribute('aria-hidden', 'false');
+    els.prompt.focus();
+  }
+  function closePromptModal() {
+    if (!els.promptModal) return;
+    els.promptModal.classList.remove('is-open');
+    els.promptModal.setAttribute('aria-hidden', 'true');
+    updatePromptPreview();
+  }
+
+  if (els.promptPreview) els.promptPreview.addEventListener('click', openPromptModal);
+  if (els.promptModal) {
+    els.promptModal.querySelectorAll('[data-prompt-close]').forEach((b) =>
+      b.addEventListener('click', closePromptModal)
+    );
+    els.prompt.addEventListener('input', updatePromptPreview);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && els.promptModal.classList.contains('is-open')) closePromptModal();
+    });
+  }
+
+  chips.forEach((c) =>
     c.addEventListener('click', () => {
       if (running) return;
-      els.chips.forEach((x) => x.classList.remove('is-active'));
+      chips.forEach((x) => x.classList.remove('is-active'));
       c.classList.add('is-active');
-      currentShop = c.dataset.shop;
-      els.shop.textContent = scenarios[currentShop].shopName;
-      resetTranscript();
+      selectUseCase(c.dataset.usecase);
     })
   );
+
   els.startBtn.addEventListener('click', startCall);
   els.stopBtn.addEventListener('click', () => endCall(false));
+
+  // État initial : pré-remplir le prompt du premier cas d'usage.
+  selectUseCase(currentUseCase);
 }

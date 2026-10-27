@@ -6,14 +6,22 @@ Site web statique, épuré et sophistiqué, pour présenter **ZM Solutions** (Zo
 
 ```
 Portefolio/
-├── index.html          ← page unique (one-page éditorial)
-├── logo.png            ← votre logo (utilisé en favicon + header + footer)
-├── styles/
-│   └── main.css        ← design system complet (palette ivoire / encre / or)
+├── index.html              ← page unique (one-page éditorial)
+├── logo.png / photo.jpg    ← visuels (favicon, header, hero, footer)
+├── data/                   ← données des démos (stock, orders, menu)
+├── styles/                 ← design system modulaire (base / components / sections)
 ├── scripts/
-│   └── main.js         ← agent vocal simulé + démos stock & commandes
+│   ├── main.js             ← orchestration des modules
+│   ├── config.js           ← secrets + pré-prompts de l'agent (NON versionné)
+│   ├── config.example.js   ← modèle de config sans secrets
+│   ├── modules/            ← un fichier par feature (agent, stock, shop…)
+│   └── utils/              ← helpers DOM / fetch
 └── README.md
 ```
+
+> ⚠️ `scripts/config.js` contient l'URL du webhook n8n et les identifiants
+> d'agents Retell : il est ignoré par Git. Copiez `config.example.js` en
+> `config.js` puis renseignez vos valeurs.
 
 ## Lancer le site en local
 
@@ -35,7 +43,9 @@ ou avec l'extension VS Code **Live Server** : clic droit sur `index.html` → *O
 
 1. **Hero** éditorial — qui vous êtes, ce que vous proposez, KPI clés.
 2. **Proposition de valeur** — 3 cartes : agent vocal, web métier, accompagnement local.
-3. **Démo Agent Vocal interactive** — 3 commerces fictifs (restaurant, boulangerie, coiffeur). Bouton *Démarrer l'appel* qui joue une conversation animée (waveform, transcription en bulles, statut, timer).
+3. **Démo Agent Vocal interactive** — agent vocal réel branché sur **Retell** (via un
+   webhook **n8n**). 3 cas d'usage (restauration rapide, coiffeur, hôtel) avec
+   pré-prompt éditable et transcription en direct (bulles agent / client).
 4. **Web métier** — 2 démos cliquables :
    - **Gestion de stock** : tableau live avec recherche, alertes colorées, bouton *Réappro*.
    - **Préparation Click & Collect** : grille de commandes filtrable, items cochables, workflow `Nouvelle → En préparation → Prête`.
@@ -53,11 +63,11 @@ ou avec l'extension VS Code **Live Server** : clic droit sur `index.html` → *O
 | Élément          | Où le modifier                                      |
 |------------------|-----------------------------------------------------|
 | Email / téléphone| `index.html` → section `#contact` (`mailto:` / `tel:`) |
-| Scénarios vocaux | `scripts/main.js` → constante `SCENARIOS`           |
-| Stock affiché    | `scripts/main.js` → constante `STOCK`               |
-| Commandes        | `scripts/main.js` → constante `ORDERS`              |
-| Couleurs         | `styles/main.css` → bloc `:root`                    |
-| Témoignages      | `index.html` → section `#temoignages`               |
+| Webhook & agents | `scripts/config.js` → `WEBHOOK_URL`, `AGENT_IDS`    |
+| Pré-prompts vocaux | `scripts/config.js` → `USE_CASES`                 |
+| Stock affiché    | `data/stock.json`                                   |
+| Commandes        | `data/orders.json`                                  |
+| Couleurs         | `styles/base/tokens.css` → bloc `:root`             |
 
 ## Brancher un vrai backend (plus tard)
 

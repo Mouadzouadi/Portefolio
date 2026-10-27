@@ -5,7 +5,7 @@
  * indépendante. Si un module échoue, les autres continuent.
  *
  * Architecture :
- *   /data        — JSON sources (stock, orders, menu, scenarios)
+ *   /data        — JSON sources (stock, orders, menu)
  *   /scripts
  *     /utils     — helpers DOM, fetch, format
  *     /modules   — un fichier par feature (nav, agent, stock, …)
@@ -28,24 +28,23 @@ function safeInit(name, fn) {
 }
 
 async function main() {
-  // Chrome statique : nav, animations, formulaire — pas de données requises.
+  // Chrome statique : nav, animations, formulaire, agent vocal, fidélité.
   safeInit('nav', initNav);
   safeInit('reveal', initReveal);
   safeInit('contact', initContact);
   safeInit('loyalty', initLoyalty);
+  safeInit('agent', initAgent);
 
   // Chargement parallèle des données — chaque échec est local.
-  const [stock, orders, menu, scenarios] = await Promise.all([
+  const [stock, orders, menu] = await Promise.all([
     loadJSON('data/stock.json').catch((e) => { console.error(e); return []; }),
     loadJSON('data/orders.json').catch((e) => { console.error(e); return []; }),
     loadJSON('data/menu.json').catch((e) => { console.error(e); return []; }),
-    loadJSON('data/scenarios.json').catch((e) => { console.error(e); return null; }),
   ]);
 
   safeInit('stock',  () => initStock(stock));
   safeInit('orders', () => initOrders(orders));
   safeInit('shop',   () => initShop(menu));
-  safeInit('agent',  () => initAgent(scenarios));
 }
 
 if (document.readyState === 'loading') {

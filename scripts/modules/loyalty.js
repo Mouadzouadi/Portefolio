@@ -25,9 +25,9 @@ const PUSH_TEMPLATES = {
     title: '🍔 Nouveau à la carte',
     text:  'Le Smash Truffe arrive ce week-end. Réservez votre menu dès maintenant.',
   },
-  happy: {
-    title: '🍺 Happy hour 17 h – 19 h',
-    text:  '2 boissons achetées, la 3ᵉ offerte. Sur place et en click & collect.',
+  birthday: {
+    title: '🎂 Joyeux anniversaire !',
+    text:  'Pour votre journée spéciale, un dessert offert cette semaine. À très vite !',
   },
   weekend: {
     title: '🌟 Menu du week-end',

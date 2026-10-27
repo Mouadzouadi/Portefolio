@@ -33,6 +33,9 @@
   .demo, .demo--reverse { grid-template-columns: 1fr; }
   .demo--reverse > .demo__intro { order: 0; }
   .agent__panel { grid-template-columns: 1fr; }
+  /* Mobile : bloc d'appel (sélection + bouton) avant la transcription */
+  .agent__phone      { order: -1; }
+  .agent__transcript { height: auto; }
   .contact      { grid-template-columns: 1fr; }
 
   /* Hero : photo en haut, plus de sticky */
@@ -129,6 +132,14 @@
   .agent { padding: 20px; }
   .agent__transcript { min-height: 280px; max-height: 380px; padding: 16px; }
   .agent__phone { padding: 20px; }
+  .agent__choices { gap: 8px; }
+  .agent__choices .chip { font-size: 12px; padding: 8px 12px; }
+
+  /* Agent — popup prompt en feuille : textarea adapté à l'écran */
+  .prompt-modal__body { padding: 16px 18px 20px; }
+  .prompt-modal__textarea { min-height: 200px; font-size: 13.5px; }
+  .prompt-modal__actions { flex-direction: column-reverse; }
+  .prompt-modal__actions .btn { width: 100%; justify-content: center; }
 }
 
 /* ===== ≤ 460px : petit mobile ===== */

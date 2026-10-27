@@ -24,13 +24,14 @@
 /* --- Sections de la page --- */
 @import url("sections/hero.css");
 @import url("sections/cards.css");
-@import url("sections/agent.css");
+@import url("sections/agent.css?v=5");
 @import url("sections/stock.css");
 @import url("sections/orders.css");
 @import url("sections/loyalty.css");
 @import url("sections/shop.css");
 @import url("sections/pricing.css");
+@import url("sections/faq.css");
 @import url("sections/contact.css");
 
 /* --- Responsive (toujours en dernier pour overrides) --- */
-@import url("utils/responsive.css");
+@import url("utils/responsive.css?v=5");
