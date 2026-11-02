@@ -14,7 +14,7 @@
 import { loadJSON } from './utils/dom.js';
 import { initNav }     from './modules/nav.js';
 import { initReveal }  from './modules/reveal.js';
-import { initAgent }   from './modules/agent.js?v=9';
+import { initAgent }   from './modules/agent.js?v=11';
 import { initShop }    from './modules/shop.js';
 import { initContact } from './modules/contact.js';
 

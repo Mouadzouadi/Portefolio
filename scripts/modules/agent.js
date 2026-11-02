@@ -8,7 +8,7 @@
  *   4. Fin d'appel (`call_ended` ou « Raccrocher ») : nettoyage et message.
  */
 import { $, $$ } from '../utils/dom.js';
-import { ENDPOINT, RETELL_SDK_URL, USE_CASES } from '../demo-config.js?v=9';
+import { ENDPOINT, RETELL_SDK_URL, USE_CASES } from '../demo-config.js?v=11';
 
 const BAR_COUNT = 32;
 
@@ -237,6 +237,13 @@ export function initAgent() {
       setStatus('En communication', 'live');
       els.caption.textContent = "Parlez : l'agent vous écoute.";
       startTimer();
+      // Les appels Retell récents (transport « gateway ») n'envoient plus la transcription au navigateur :
+      // sans elle, la zone de gauche explique quoi faire au lieu de rester vide.
+      setTimeout(() => {
+        if (running && !els.transcript.querySelector('.bubble')) {
+          appendSystemNote("L'appel est en cours : parlez normalement, l'agent vous répond à voix haute. Essayez « Bonjour, je voudrais commander un menu à emporter ».");
+        }
+      }, 2500);
     });
 
     client.on('agent_start_talking', () => {
@@ -276,7 +283,7 @@ export function initAgent() {
 
     try {
       const SDK = await loadRetellSDK();
-      const { accessToken, transport, iceServers, url } = await requestAccessToken(currentUseCase);
+      const { accessToken, callId, transport, iceServers, url } = await requestAccessToken(currentUseCase);
 
       client = new SDK();
       wireEvents();
@@ -284,7 +291,8 @@ export function initAgent() {
       // Compatibilité : startCall (API actuelle) ou startWebCall (ancienne).
       if (typeof client.startCall === 'function') {
         // SDK 3.x : RetellWebClient garde les mêmes événements (update, agent_start_talking) que la 2.x.
-        await client.startCall({ accessToken, transport, iceServers, url });
+        // Le transport « gateway » exige aussi l'identifiant de l'appel.
+        await client.startCall({ accessToken, callId, transport, iceServers, url });
       } else {
         await client.startWebCall({ accessToken });
       }
