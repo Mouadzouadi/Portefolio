@@ -1,6 +1,6 @@
 #!/bin/bash
-# Met en ligne zmsolutions.fr depuis GitHub, a lancer en SSH sur l'hebergement Infomaniak :
-#   bash deploy-infomaniak.sh /srv/customer/sites/zmsolutions.fr [branche]
+# Met en ligne zmsolutions.fr depuis GitHub, a lancer dans la console SSH de l'hebergement web (pas celle de n8n) :
+#   bash deploy-infomaniak.sh <dossier du site> [branche]     (ex. ~/sites/zmsolutions.fr)
 # - telecharge (ou met a jour) le depot dans ~/zm-site-src ;
 # - sauvegarde le site actuel dans ~/zm-site-backups/<date>/ ;
 # - copie le site (sans .git, pages/, tools/, README) dans le dossier du site ;
@@ -15,13 +15,22 @@ SRC="$HOME/zm-site-src"
 [ -d "$DEST" ] || { echo "Dossier introuvable : $DEST"; exit 1; }
 case "$DEST" in */n8n.zmsolutions.fr*) echo "Ce dossier est celui de n8n, pas du site : arret."; exit 1;; esac
 
-if [ -d "$SRC/.git" ]; then
-  git -C "$SRC" fetch --depth 1 origin "$BRANCH"
-  git -C "$SRC" checkout -q -B "$BRANCH" FETCH_HEAD
+if command -v git >/dev/null 2>&1; then
+  if [ -d "$SRC/.git" ]; then
+    git -C "$SRC" fetch --depth 1 origin "$BRANCH"
+    git -C "$SRC" checkout -q -B "$BRANCH" FETCH_HEAD
+  else
+    rm -rf "$SRC"
+    git clone -q --depth 1 --branch "$BRANCH" "$REPO" "$SRC"
+  fi
+  echo "Version : $(git -C "$SRC" log -1 --format='%h %s')"
 else
-  git clone -q --depth 1 --branch "$BRANCH" "$REPO" "$SRC"
+  # Pas de git sur cet hebergement : archive de la branche depuis GitHub.
+  rm -rf "$SRC" && mkdir -p "$SRC"
+  curl -fsSL "https://codeload.github.com/Mouadzouadi/Portefolio/tar.gz/refs/heads/$BRANCH" | tar -xz -C "$SRC" --strip-components=1
+  echo "Version : archive de la branche $BRANCH"
 fi
-echo "Version : $(git -C "$SRC" log -1 --format='%h %s')"
+[ -f "$SRC/index.html" ] || { echo "Telechargement incomplet : index.html absent."; exit 1; }
 
 BACKUP="$HOME/zm-site-backups/$(date +%Y%m%d-%H%M%S)"
 mkdir -p "$BACKUP"
