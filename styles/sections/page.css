@@ -1,0 +1,32 @@
+/* =============================================================
+   sections/page.css — pages dédiées (référencement) : en-tête, texte long, appel à l'action
+   ============================================================= */
+.page-hero { padding-top: clamp(120px, 16vw, 170px); padding-bottom: 24px; }
+.page-hero .section__title { max-width: 22ch; }
+.page-hero .section__sub { max-width: 62ch; }
+.crumbs { font-size: 13px; color: color-mix(in oklab, var(--ink) 60%, transparent); margin-bottom: 18px; display: flex; gap: 8px; flex-wrap: wrap; }
+.crumbs a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+.prose { max-width: 760px; padding-top: 8px; }
+.prose h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(26px, 3.4vw, 34px); line-height: 1.15; margin: 48px 0 14px; }
+.prose h2:first-child { margin-top: 0; }
+.prose h3 { font-family: var(--serif); font-weight: 500; font-size: 21px; margin: 28px 0 8px; }
+.prose p, .prose li { font-size: 17px; line-height: 1.7; color: var(--ink-2); }
+.prose p { margin: 0 0 16px; }
+.prose ul, .prose ol { margin: 0 0 18px; padding-left: 1.2em; }
+.prose li { margin: 0 0 8px; }
+.prose a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.prose strong { font-weight: 600; }
+.prose .callout { margin: 28px 0; padding: 20px 22px; border-radius: 16px; background: var(--paper-2); border: 1px solid var(--line); }
+.prose .callout p:last-child { margin-bottom: 0; }
+
+.page-cta .section__head { text-align: center; margin-inline: auto; }
+.page-cta__actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.nav__links a[aria-current="page"] { text-decoration: underline; text-underline-offset: 6px; }
+
+/* Lien vers la page dediee, sous une demo. */
+.more-link { display: block; margin-top: 10px; font-weight: 600; color: inherit; text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+/* Boutons sur fond sombre (bloc final des pages dediees). */
+.page-cta .btn--primary { background: var(--gold-2); color: var(--ink); }
+.page-cta .btn--ghost { color: var(--paper); border-color: color-mix(in oklab, var(--paper) 40%, transparent); }
+.page-cta .btn--ghost:hover { border-color: var(--paper); }

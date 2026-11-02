@@ -5,9 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- ===== SEO principal ===== -->
-  <title>Création de site web & agent vocal IA à Blois (41) | ZM Solutions</title>
-  <meta name="description" content="Création de sites web, applications métier et agents vocaux IA sur-mesure pour les commerces de proximité à Blois et dans le Loir-et-Cher (41). Par Mouad Zouadi, ingénieur logiciel & IA. Devis gratuit." />
-  <meta name="keywords" content="création site web Blois, agent vocal IA, développeur web Blois, application métier, digitalisation commerce, site internet Loir-et-Cher, ZM Solutions, Mouad Zouadi" />
+  <title>Agent vocal IA, WhatsApp et site web à Blois | ZM Solutions</title>
+  <meta name="description" content="Agent vocal IA qui répond au téléphone, commande WhatsApp et création de site web pour les commerces de Blois et du Loir-et-Cher. Démos à essayer en ligne." />
   <meta name="author" content="Mouad Zouadi — ZM Solutions" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://zmsolutions.fr/" />
@@ -23,22 +22,26 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ZM Solutions" />
   <meta property="og:locale" content="fr_FR" />
-  <meta property="og:title" content="Création de site web & agent vocal IA à Blois (41) | ZM Solutions" />
-  <meta property="og:description" content="Sites web, applications métier et agents vocaux IA sur-mesure pour les commerces de proximité à Blois et dans le Loir-et-Cher. Devis gratuit." />
+  <meta property="og:title" content="Agent vocal IA, WhatsApp et site web à Blois | ZM Solutions" />
+  <meta property="og:description" content="Agent vocal IA qui répond au téléphone, commande WhatsApp et création de site web pour les commerces de Blois et du Loir-et-Cher. Démos à essayer en ligne." />
   <meta property="og:url" content="https://zmsolutions.fr/" />
-  <meta property="og:image" content="https://zmsolutions.fr/photo.jpg" />
+  <meta property="og:image" content="https://zmsolutions.fr/img/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="ZM Solutions — Mouad Zouadi, Blois" />
 
   <!-- ===== Twitter Card ===== -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Création de site web & agent vocal IA à Blois (41) | ZM Solutions" />
-  <meta name="twitter:description" content="Sites web, applications métier et agents vocaux IA sur-mesure pour les commerces de proximité à Blois et dans le Loir-et-Cher. Devis gratuit." />
-  <meta name="twitter:image" content="https://zmsolutions.fr/photo.jpg" />
+  <meta name="twitter:title" content="Agent vocal IA, WhatsApp et site web à Blois | ZM Solutions" />
+  <meta name="twitter:description" content="Agent vocal IA qui répond au téléphone, commande WhatsApp et création de site web pour les commerces de Blois et du Loir-et-Cher. Démos à essayer en ligne." />
+  <meta name="twitter:image" content="https://zmsolutions.fr/img/og-image.jpg" />
 
-  <link rel="icon" href="logo.png" type="image/png" />
+  <link rel="icon" href="/img/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=DM+Serif+Display:ital@0;1&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles/main.css?v=7" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles/site.css?v=8" />
 
   <!-- ===== Données structurées : entreprise locale (Google) ===== -->
   <script type="application/ld+json">
@@ -48,8 +51,8 @@
     "name": "ZM Solutions",
     "description": "Création de sites web, applications métier et agents vocaux IA sur-mesure pour les commerces de proximité.",
     "url": "https://zmsolutions.fr/",
-    "image": "https://zmsolutions.fr/photo.jpg",
-    "logo": "https://zmsolutions.fr/logo.png",
+    "image": "https://zmsolutions.fr/img/og-image.jpg",
+    "logo": "https://zmsolutions.fr/img/logo-512.png",
     "email": "zouadimouad49@gmail.com",
     "telephone": "+33771032375",
     "priceRange": "€€",
@@ -68,7 +71,8 @@
     "areaServed": [
       { "@type": "City", "name": "Blois" },
       { "@type": "AdministrativeArea", "name": "Loir-et-Cher" },
-      { "@type": "AdministrativeArea", "name": "Centre-Val de Loire" }
+      { "@type": "AdministrativeArea", "name": "Centre-Val de Loire" },
+      { "@type": "Country", "name": "France" }
     ],
     "knowsAbout": [
       "Création de site web",
@@ -133,19 +137,18 @@
   <!-- ============== NAV ============== -->
   <header class="nav" id="nav">
     <a href="#top" class="nav__brand" aria-label="ZM Solutions, retour en haut">
-      <img src="logo.png" alt="" class="nav__logo" />
+      <picture><source srcset="/img/logo.webp" type="image/webp" /><img src="/img/logo.png" alt="" class="nav__logo" width="176" height="96" /></picture>
       <span class="nav__wordmark">
         <span class="nav__wordmark-main">ZM Solutions</span>
         <span class="nav__wordmark-sub">Digitalisation · IA · Sur-mesure</span>
       </span>
     </a>
     <nav class="nav__links" aria-label="Navigation principale">
-      <a href="#parcours">Parcours</a>
-      <a href="#valeur">Approche</a>
+      <a href="#valeur">Offres</a>
       <a href="#agent">Agent vocal</a>
       <a href="#whatsapp">WhatsApp</a>
-      <a href="#metier">Web métier</a>
-      <a href="#aides">Aides</a>
+      <a href="#metier">Site de commande</a>
+      <a href="#tarifs">Tarifs</a>
       <a href="#faq">FAQ</a>
       <a href="#contact" class="nav__cta">Échanger</a>
     </nav>
@@ -159,7 +162,7 @@
     <div class="hero__grid">
       <div class="hero__media">
         <div class="hero__photo">
-          <img src="photo.jpg" alt="Mouad Zouadi, ingénieur logiciel et IA à Blois, fondateur de ZM Solutions" />
+          <picture><source srcset="/img/photo.webp" type="image/webp" /><img src="/img/photo.jpg" alt="Mouad Zouadi, ingénieur logiciel et IA à Blois, fondateur de ZM Solutions" width="712" height="587" fetchpriority="high" /></picture>
           <div class="hero__photo-frame" aria-hidden="true"></div>
         </div>
         <div class="hero__signature" aria-hidden="true">
@@ -169,9 +172,6 @@
       </div>
 
       <div class="hero__content">
-        <div class="hero__meta">
-        </div>
-
         <h1 class="hero__title">
           Bonjour, je suis <em>Mouad</em>, ingénieur logiciel et intelligence artificielle.<br />
           Je conçois vos outils numériques <span class="hl">sur-mesure</span>.
@@ -184,8 +184,9 @@
           en français, sites et applications mobiles.
         </p>
         <p class="hero__lede">
-          Pas de template générique, pas d'abonnement caché&nbsp;: chaque outil est pensé pour
-          <em>votre métier</em> et l'usage de votre équipe en service.
+          Ingénieur en formation à l'<strong>ESILV</strong>, en alternance chez <strong>Procter <span class="amp">&amp;</span> Gamble</strong>
+          où je développe des solutions IA en production. Pas de template générique, pas d'abonnement caché&nbsp;:
+          chaque outil est pensé pour <em>votre métier</em>.
         </p>
 
         <div class="hero__ctas">
@@ -234,6 +235,7 @@
           <li>Tableau de bord clair et ergonomique</li>
           <li>Accès sécurisé, multi-utilisateurs</li>
           <li>Hébergement et maintenance inclus</li>
+        </ul>
       </article>
 
 
@@ -256,59 +258,6 @@
     </p>
   </section>
 
-  <!-- ============== PARCOURS ============== -->
-  <section class="section" id="parcours">
-    <div class="section__head">
-      <span class="eyebrow">À propos</span>
-      <h2 class="section__title">Pourquoi me confier <em>vos outils numériques</em>&nbsp;?</h2>
-      <p class="section__sub">
-        En 4ᵉ année à l'<strong>ESILV</strong> (Ingénierie Logicielle et IA), en alternance chez
-        <strong>Procter <span class="amp">&amp;</span> Gamble</strong>&nbsp;: je développe au quotidien des solutions data
-        et IA en production. La même exigence, au service des commerces locaux.
-      </p>
-    </div>
-
-    <div class="hero__columns">
-      <div>
-        <span class="eyebrow eyebrow--small">Parcours</span>
-        <ul class="timeline">
-          <li>
-            <span class="timeline__date">Depuis sept. 2024</span>
-            <strong>Procter <span class="amp">&amp;</span> Gamble</strong>
-            <span>Développeur d'applications · Ingénieur Data et IA, en alternance</span>
-          </li>
-          <li>
-            <span class="timeline__date">2025 — 2028</span>
-            <strong>Cycle Ingénieur · ESILV</strong>
-            <span>Majeure Ingénierie Logicielle et Intelligence Artificielle</span>
-          </li>
-          <li>
-            <span class="timeline__date">2023 — 2025</span>
-            <strong>DUT Informatique · IUT d'Orléans</strong>
-            <span>En apprentissage</span>
-          </li>
-        </ul>
-      </div>
-
-      <div>
-        <span class="eyebrow eyebrow--small">Ce qui me définit</span>
-        <div class="skills">
-          <div class="skills__group">
-            <h4>Compétences</h4>
-            <div class="skills__chips skills__chips--soft">
-              <span>Cadrage du besoin</span><span>Conseil client</span><span>Gestion de projet</span><span>Pilotage de déploiement</span>
-            </div>
-          </div>
-          <div class="skills__group">
-            <h4>Langues</h4>
-            <div class="skills__chips skills__chips--soft">
-              <span>Français</span><span>Anglais</span><span>Arabe</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ============== AGENT VOCAL ============== -->
   <section class="section section--dark" id="agent">
@@ -330,7 +279,7 @@
         <div class="agent__transcript" id="agentTranscript" aria-label="Transcription de la conversation en direct">
           <div class="agent__placeholder">
             <p>La transcription apparaîtra ici, en direct.</p>
-            <small>Choisissez un cas d'usage, ajustez le prompt, puis lancez l'appel.</small>
+            <small>Choisissez un commerce, lancez l'appel et parlez comme un client.</small>
           </div>
         </div>
 
@@ -340,23 +289,6 @@
             <span class="dot dot--idle" id="agentDot"></span>
             <span id="agentStatus">Agent prêt</span>
             <span class="agent__timer" id="agentTimer">00:00</span>
-          </div>
-
-          <!-- Prompt système éditable -->
-          <div class="agent__prompt">
-            <span class="agent__prompt-label">
-              Personnalité de l'agent
-              <span class="agent__badge">version de démonstration</span>
-            </span>
-            <button type="button" class="agent__prompt-preview" id="agentPromptOpen"
-                    aria-haspopup="dialog" aria-controls="promptModal">
-              <span class="agent__prompt-text" id="agentPromptText"></span>
-              <span class="agent__prompt-edit" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-                Modifier
-              </span>
-            </button>
-            <p class="agent__prompt-hint">Cliquez pour lire ou modifier le texte, puis lancez l'appel.</p>
           </div>
 
           <div class="agent__visual" id="agentVisual">
@@ -388,6 +320,7 @@
         activité&nbsp;: il n'hallucine aucune information et bloque les demandes impossibles.
         C'est grâce à cette fiabilité qu'il peut ensuite envoyer sereinement chaque commande
         ou réservation directement sur votre tablette.
+        <a href="/agent-vocal-ia-restaurant/" class="more-link">Tout savoir sur l'agent vocal IA pour restaurant →</a>
       </p>
     </div>
   </section>
@@ -427,6 +360,7 @@
         <p class="wa__note">
           Restaurant de démonstration&nbsp;: les commandes ne sont ni préparées ni facturées.
           Chez vous, l'assistant connaît votre carte, vos horaires et vos zones de livraison, et envoie chaque commande sur votre tablette.
+          <a href="/commande-whatsapp-restaurant/" class="more-link">Tout savoir sur la commande WhatsApp →</a>
         </p>
       </div>
 
@@ -450,114 +384,24 @@
   <!-- ============== WEB MÉTIER ============== -->
   <section class="section section--wide" id="metier">
     <div class="section__head">
-      <span class="eyebrow">04 — Aperçus interactifs</span>
-      <h2 class="section__title">Trois exemples concrets, <em>réellement cliquables</em>.</h2>
+      <span class="eyebrow">04 — Site de commande en ligne</span>
+      <h2 class="section__title">Votre propre site de commande, <em>sans commission</em>.</h2>
       <p class="section__sub">
-        Pas de captures d'écran figées : ces démos fonctionnent dans votre navigateur,
-        avec de vraies données, pour vous donner une idée juste de ce que je livre.
+        Une vraie démo cliquable : choisissez des plats, remplissez le panier.
+        Chez vous, la commande arrive directement en cuisine, sur la même tablette que WhatsApp et le téléphone.
+        <a href="/creation-site-web-blois/" class="more-link">Création de site web à Blois →</a>
       </p>
     </div>
 
-    <!-- Stock -->
-    <div class="demo">
-      <div class="demo__intro">
-        <span class="eyebrow eyebrow--small">Gestion de stock</span>
-        <h3>Voir, en un coup d'œil, ce qu'il faut recommander aujourd'hui.</h3>
-        <p>Les produits passent en orange quand le stock baisse, en rouge quand l'alerte est franchie. Cliquez sur une ligne pour ajuster.</p>
-        <ul class="demo__bullets">
-          <li>Alertes automatiques par email / SMS</li>
-          <li>Historique des entrées-sorties</li>
-          <li>Multi-fournisseurs, multi-points de vente</li>
-        </ul>
-      </div>
-
-      <div class="mockup mockup--stock" aria-label="Aperçu interactif du module Stock">
-        <div class="mockup__chrome">
-          <span></span><span></span><span></span>
-          <em>zm-solutions · gestion de stock</em>
-        </div>
-        <div class="mockup__body">
-          <header class="stock__head">
-            <div>
-              <h4>Stock du jour</h4>
-              <small id="stockDate">—</small>
-            </div>
-            <div class="stock__search">
-              <input type="search" placeholder="Rechercher un produit…" id="stockSearch" />
-              <button class="btn btn--mini">+ Produit</button>
-            </div>
-          </header>
-
-          <div class="stock__stats">
-            <div><strong id="stockTotal">—</strong><span>références</span></div>
-            <div><strong id="stockAlert">—</strong><span>alertes</span></div>
-            <div><strong id="stockLow">—</strong><span>à recommander</span></div>
-            <div><strong>3 j</strong><span>autonomie moy.</span></div>
-          </div>
-
-          <div class="stock__table-wrap">
-            <table class="stock__table" id="stockTable">
-              <thead>
-                <tr>
-                  <th>Produit</th>
-                  <th>Catégorie</th>
-                  <th>Stock</th>
-                  <th>Seuil</th>
-                  <th>Statut</th>
-                  <th class="stock__action-col"></th>
-                </tr>
-              </thead>
-              <tbody><!-- injecté par JS --></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Préparation commandes -->
-    <div class="demo demo--reverse">
-      <div class="demo__intro">
-        <span class="eyebrow eyebrow--small">Préparation Click <span class="amp">&amp;</span> Collect</span>
-        <h3>Une file de commandes claire, pour ne plus jamais se tromper en service.</h3>
-        <p>L'opérateur voit ce qui doit partir en priorité, coche les articles, et passe la commande en « prêt ». Le client est notifié automatiquement.</p>
-        <ul class="demo__bullets">
-          <li>Tri par heure de retrait</li>
-          <li>Mode plein-écran tablette cuisine</li>
-          <li>Notification SMS / email au client</li>
-        </ul>
-      </div>
-
-      <div class="mockup mockup--orders" aria-label="Aperçu interactif du module Préparation">
-        <div class="mockup__chrome">
-          <span></span><span></span><span></span>
-          <em>zm-solutions · préparation des commandes</em>
-        </div>
-        <div class="mockup__body orders__body">
-          <header class="orders__head">
-            <div class="orders__filters">
-              <button class="pill is-active" data-filter="all">Toutes <em id="cAll">0</em></button>
-              <button class="pill" data-filter="new">Nouvelles <em id="cNew">0</em></button>
-              <button class="pill" data-filter="prep">En préparation <em id="cPrep">0</em></button>
-              <button class="pill" data-filter="done">Prêtes <em id="cDone">0</em></button>
-            </div>
-            <div class="orders__clock" id="ordersClock">—</div>
-          </header>
-
-          <div class="orders__grid" id="ordersGrid"><!-- injecté par JS --></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Site e-commerce restaurant -->
     <div class="demo">
       <div class="demo__intro">
         <span class="eyebrow eyebrow--small">Site e-commerce</span>
         <h3>Un site de commande en ligne au design soigné, intégré à votre cuisine.</h3>
-        <p>Le client choisit ses plats, ajoute au panier et règle en ligne. La commande arrive directement dans le module de préparation présenté plus haut. Pas d'intermédiaire, pas de commission.</p>
+        <p>Le client choisit ses plats, ajoute au panier et règle en ligne. La commande arrive directement en cuisine. Pas d'intermédiaire, pas de commission.</p>
         <ul class="demo__bullets">
           <li>Catalogue géré depuis un back-office simple</li>
           <li>Click <span class="amp">&amp;</span> collect ou livraison à domicile</li>
-          <li>Connecté à votre stock en temps réel</li>
+          <li>Ruptures de stock gérées depuis la tablette</li>
         </ul>
       </div>
 
@@ -574,7 +418,6 @@
               <p>Smash burgers et tacos maison, viande charolaise, frites fraîches. Click <span class="amp">&amp;</span> collect ou livraison en 25 min.</p>
             </div>
             <div class="shop__hero-meta">
-              <div><strong>4,8</strong><span>★ avis Google (412)</span></div>
               <div><strong>15 min</strong><span>retrait moyen</span></div>
             </div>
           </header>
@@ -618,67 +461,6 @@
     </div>
   </section>
 
-  <!-- ============== MODAL : Personnalité de l'agent ============== -->
-  <div class="modal" id="promptModal" aria-hidden="true" role="dialog" aria-labelledby="promptModalTitle" aria-modal="true">
-    <div class="modal__backdrop" data-prompt-close></div>
-    <div class="modal__panel modal__panel--prompt">
-      <header class="modal__head">
-        <h3 id="promptModalTitle">Personnalité de l'agent</h3>
-        <button class="modal__close" aria-label="Fermer" data-prompt-close>×</button>
-      </header>
-      <div class="prompt-modal__body">
-        <p class="prompt-modal__intro">
-          Voici les consignes que suit l'agent pendant l'appel. Vous pouvez les modifier
-          ci-dessous avant de lancer la démonstration.
-        </p>
-        <textarea id="agentPrompt" class="prompt-modal__textarea" spellcheck="false"></textarea>
-        <div class="prompt-modal__actions">
-          <button type="button" class="btn btn--ghost" data-prompt-close>Fermer</button>
-          <button type="button" class="btn btn--primary" data-prompt-close>Enregistrer</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============== MODAL : Ajouter un produit ============== -->
-  <div class="modal" id="productModal" aria-hidden="true" role="dialog" aria-labelledby="productModalTitle" aria-modal="true">
-    <div class="modal__backdrop" data-close></div>
-    <div class="modal__panel">
-      <header class="modal__head">
-        <h3 id="productModalTitle">Ajouter un produit au stock</h3>
-        <button class="modal__close" aria-label="Fermer" data-close>×</button>
-      </header>
-      <form class="modal__form" id="productForm" novalidate>
-        <div class="field">
-          <label for="p-name">Nom du produit</label>
-          <input id="p-name" name="name" type="text" required maxlength="60" />
-        </div>
-        <div class="field">
-          <label for="p-cat">Catégorie</label>
-          <input id="p-cat" name="cat" type="text" required list="catList" maxlength="40" />
-          <datalist id="catList"></datalist>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label for="p-stock">Stock actuel</label>
-            <input id="p-stock" name="stock" type="number" min="0" value="0" required />
-          </div>
-          <div class="field">
-            <label for="p-threshold">Seuil d'alerte</label>
-            <input id="p-threshold" name="threshold" type="number" min="0" value="10" required />
-          </div>
-          <div class="field">
-            <label for="p-max">Stock max</label>
-            <input id="p-max" name="max" type="number" min="1" value="100" required />
-          </div>
-        </div>
-        <div class="modal__actions">
-          <button type="button" class="btn btn--ghost" data-close>Annuler</button>
-          <button type="submit" class="btn btn--primary">Ajouter au stock</button>
-        </div>
-      </form>
-    </div>
-  </div>
 
   <!-- ============== TARIFS ============== -->
   <section class="section section--wide" id="tarifs">
@@ -729,55 +511,6 @@
     </div>
   </section>
 
-  <!-- ============== ACCOMPAGNEMENT et AIDES ============== -->
-  <section class="section" id="aides">
-    <div class="section__head">
-      <span class="eyebrow">06 — Accompagnement</span>
-      <h2 class="section__title">Votre projet numérique, <em>en partie financé</em> par les aides.</h2>
-      <p class="section__sub">
-        Digitaliser son commerce ouvre droit, selon votre situation, à plusieurs dispositifs
-        d'aide publics. En Centre-Val de Loire, je m'appuie notamment sur le
-        <strong>Chèque Numérique de la Région</strong> et les <strong>aides au conseil de la CCI</strong>.
-        Je vous aide à les <strong>découvrir</strong>, à <strong>monter le dossier</strong>
-        et à faire <strong>baisser la note finale</strong> — sans jargon administratif.
-      </p>
-    </div>
-
-    <div class="cards">
-      <article class="card">
-        <div class="card__num">01</div>
-        <h3>Repérer vos aides</h3>
-        <p>Je fais le point sur les dispositifs auxquels votre commerce peut prétendre pour sa transition numérique, selon votre région et votre activité.</p>
-        <ul class="card__list">
-          <li>Chèque Numérique et aides régionales</li>
-          <li>Dispositifs CCI / chambres de métiers</li>
-          <li>Étude d'éligibilité gratuite</li>
-        </ul>
-      </article>
-
-      <article class="card">
-        <div class="card__num">02</div>
-        <h3>Monter le dossier</h3>
-        <p>Je vous accompagne dans les démarches : devis, justificatifs, formulaires. Vous restez concentré sur votre commerce, je m'occupe de la partie technique.</p>
-        <ul class="card__list">
-          <li>Constitution du dossier</li>
-          <li>Devis et pièces conformes</li>
-          <li>Suivi jusqu'à la décision</li>
-        </ul>
-      </article>
-
-      <article class="card">
-        <div class="card__num">03</div>
-        <h3>Faire baisser la note</h3>
-        <p>Une partie de l'investissement peut être prise en charge. Résultat : un reste à charge réduit, pour un outil numérique pensé pour durer.</p>
-        <ul class="card__list">
-          <li>Reste à charge allégé</li>
-          <li>Investissement étalé possible</li>
-          <li>Transparence totale sur les coûts</li>
-        </ul>
-      </article>
-    </div>
-  </section>
 
   <!-- ============== FAQ ============== -->
   <section class="section" id="faq">
@@ -823,7 +556,7 @@
 
       <details class="faq__item">
         <summary class="faq__q">Puis-je être aidé financièrement&nbsp;? <span class="faq__icon" aria-hidden="true"></span></summary>
-        <p class="faq__a">C'est possible selon votre activité et votre région&nbsp;: certains dispositifs publics financent une partie de la digitalisation. Je vérifie votre <strong>éligibilité gratuitement</strong> et je vous aide à monter le dossier&nbsp;— détails dans la section <a href="#aides">Accompagnement</a>.</p>
+        <p class="faq__a">C'est possible selon votre activité et votre région&nbsp;: certains dispositifs publics financent une partie de la digitalisation. Je vérifie votre <strong>éligibilité gratuitement</strong> et je vous aide à monter le dossier&nbsp;— détails dans la section Accompagnement.</p>
       </details>
     </div>
 
@@ -885,18 +618,18 @@
   <footer class="footer">
     <div class="footer__top">
       <div class="footer__brand">
-        <img src="logo.png" alt="" />
+        <picture><source srcset="/img/logo.webp" type="image/webp" /><img src="/img/logo.png" alt="" width="176" height="96" loading="lazy" /></picture>
         <div>
           <strong>ZM Solutions</strong>
-          <span>Zouadi Mouad — Ingénieur Logiciel et Intelligence Artificielle</span>
+          <span>Zouadi Mouad — Ingénieur Logiciel et Intelligence Artificielle — Blois (41)</span>
         </div>
       </div>
       <nav class="footer__nav" aria-label="Pied de page">
-        <a href="#valeur">Approche</a>
-        <a href="#agent">Agent vocal</a>
-        <a href="#whatsapp">WhatsApp</a>
-        <a href="#metier">Web métier</a>
+        <a href="/agent-vocal-ia-restaurant/">Agent vocal IA pour restaurant</a>
+        <a href="/commande-whatsapp-restaurant/">Commande WhatsApp</a>
+        <a href="/creation-site-web-blois/">Création de site web à Blois</a>
         <a href="#contact">Contact</a>
+        <a href="/mentions-legales/">Mentions légales</a>
       </nav>
     </div>
     <div class="footer__bottom">
@@ -904,6 +637,6 @@
     </div>
   </footer>
 
-  <script type="module" src="scripts/main.js?v=6"></script>
+  <script type="module" src="/scripts/main.js?v=8"></script>
 </body>
 </html>

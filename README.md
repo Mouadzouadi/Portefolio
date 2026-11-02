@@ -1,115 +1,52 @@
-# ZM Solutions — Site portfolio
+# ZM Solutions — site zmsolutions.fr
 
-Site web statique, épuré et sophistiqué, pour présenter **ZM Solutions** (Zouadi Mouad), studio de digitalisation et d'IA pour les commerces de proximité.
+Site statique (HTML, CSS, JavaScript sans framework) hébergé chez Infomaniak (Apache + PHP), avec deux démos réelles :
+l'agent vocal Retell (via `api/retell-web-call.php`) et la commande WhatsApp (numéro de démo du bot n8n).
 
 ## Structure
 
 ```
-Portefolio/
-├── index.html              ← page unique (one-page éditorial)
-├── logo.png / photo.jpg    ← visuels (favicon, header, hero, footer)
-├── data/                   ← données des démos (stock, orders, menu)
-├── styles/                 ← design system modulaire (base / components / sections)
-├── api/                    ← PHP hébergé avec le site (démo vocale, secours WhatsApp)
-│   ├── retell-web-call.php ← crée l'appel Retell (remplace le webhook n8n)
-│   ├── whatsapp-offline.php← réponse de secours si le bot WhatsApp ne répond pas
-│   ├── config.php          ← clé Retell (NON versionné, à créer sur l'hébergement)
-│   └── config.example.php  ← modèle sans secret
-├── scripts/
-│   ├── main.js             ← orchestration des modules
-│   ├── config.js           ← secrets + pré-prompts de l'agent (NON versionné)
-│   ├── config.example.js   ← modèle de config sans secrets
-│   ├── modules/            ← un fichier par feature (agent, stock, shop…)
-│   └── utils/              ← helpers DOM / fetch
-└── README.md
+index.html                    page d'accueil (démos vocale, WhatsApp, boutique ; tarifs ; FAQ ; contact)
+agent-vocal-ia-restaurant/    pages dédiées au référencement, GÉNÉRÉES depuis pages/ (ne pas modifier à la main)
+commande-whatsapp-restaurant/
+creation-site-web-blois/
+mentions-legales/
+404.html                      page d'erreur (générée)
+pages/*.html                  sources des pages dédiées : bloc <!--meta {...}--> + contenu
+api/                          retell-web-call.php (crée l'appel Retell), use-cases.php (agents et rôles), config.php (secret, non versionné)
+scripts/                      main.js (accueil), page.js (pages dédiées), demo-config.js (cas d'usage de la démo vocale), modules/
+styles/                       sources CSS (main.css + @import) ; site.css = fichier assemblé chargé par les pages
+img/                          images optimisées (WebP + repli JPG/PNG), photos de la démo boutique dans img/menu/
+data/menu.json                carte de la démo boutique
+tools/build.py                assemble styles/ en styles/site.css
+tools/pages.py                génère les pages dédiées, la 404 et sitemap.xml
 ```
 
-> ⚠️ `scripts/config.js` (identifiants d'agents, pré-prompts) et `api/config.php`
-> (clé API Retell) sont ignorés par Git. Copiez les fichiers `*.example.*` puis
-> renseignez vos valeurs. La clé Retell ne doit jamais aller dans `scripts/` :
-> tout ce dossier est téléchargeable par les visiteurs.
+## Modifier le site
 
-## Lancer le site en local
+- **Styles** : modifier un fichier de `styles/`, puis `python3 tools/build.py`. Changer `?v=N` sur `site.css` dans `index.html`
+  et `CSS_VERSION` dans `tools/pages.py` pour que les visiteurs reçoivent la nouvelle version.
+- **Pages dédiées** : modifier `pages/<adresse>.html`, puis `python3 tools/pages.py` (régénère aussi `sitemap.xml`).
+  Une nouvelle page = un nouveau fichier dans `pages/`. Titre ≤ 65 caractères, description entre 70 et 160 (vérifié).
+- **Démo vocale** : les rôles des agents sont dans `api/use-cases.php`, les boutons dans `scripts/demo-config.js` (mêmes clés).
+- **Tester en local** : `python3 -m http.server 5500` à la racine, puis http://localhost:5500 (la démo vocale a besoin de PHP :
+  `php -S localhost:5500`).
 
-Aucune dépendance, aucun build. Deux options :
+## Mettre en ligne (Infomaniak)
 
-**Option A — double-clic** : ouvrez `index.html` dans votre navigateur.
+1. Envoyer tout le dépôt à la racine du site (gestionnaire de fichiers du Manager ou FTP), **sauf** `.git/`, `pages/`, `tools/`.
+   Les fichiers `.htaccess` (racine et `api/`) doivent être envoyés : ils activent la compression, le cache, la page 404
+   et protègent la configuration.
+2. Sur l'hébergement, créer `api/config.php` à partir de `api/config.example.php` avec la vraie clé Retell
+   (tableau de bord Retell › API Keys) et une chaîne aléatoire pour `salt`. Ce fichier ne doit jamais être commité.
+3. Vérifier : https://zmsolutions.fr/sitemap.xml s'affiche, https://zmsolutions.fr/api/config.php renvoie une erreur 403,
+   et la démo vocale démarre un appel.
+4. Référencement : déclarer `https://zmsolutions.fr/sitemap.xml` dans Google Search Console, et tenir à jour la fiche
+   Google Business Profile (adresse à Blois, catégorie, lien vers le site) : c'est elle qui fait apparaître le site
+   dans les recherches locales.
 
-**Option B — serveur local (recommandé pour les polices Google)** :
+## Démo WhatsApp
 
-```powershell
-# depuis le dossier Portefolio
-python -m http.server 5500
-# puis ouvrir http://localhost:5500
-```
-
-ou avec l'extension VS Code **Live Server** : clic droit sur `index.html` → *Open with Live Server*.
-
-## Sections du site
-
-1. **Hero** éditorial — qui vous êtes, ce que vous proposez, KPI clés.
-2. **Proposition de valeur** — 3 cartes : agent vocal, web métier, accompagnement local.
-3. **Démo Agent Vocal interactive** — agent vocal réel branché sur **Retell** via
-   `api/retell-web-call.php` (fonctionne sans le PC de développement). 3 cas d'usage
-   avec pré-prompt éditable et transcription en direct. Garde-fous : agents autorisés,
-   origine du site, 4 appels par heure et par IP, 40 par jour (`api/config.php`).
-3 bis. **Démo WhatsApp** (`#whatsapp`) — bouton « Ouvrir WhatsApp » (lien `wa.me`
-   avec message prérempli), lien WhatsApp Web pour un ordinateur sans l'application,
-   QR code (SVG intégré, aucun service tiers) et aperçu de conversation. Sur téléphone,
-   seul le bouton est affiché. Le numéro est celui du restaurant de démonstration.
-4. **Web métier** — 2 démos cliquables :
-   - **Gestion de stock** : tableau live avec recherche, alertes colorées, bouton *Réappro*.
-   - **Préparation Click & Collect** : grille de commandes filtrable, items cochables, workflow `Nouvelle → En préparation → Prête`.
-5. **Témoignages** locaux (Mouad S., Julie B., Karim T.).
-6. **Contact** — formulaire épuré avec validation côté client.
-
-## Design
-
-- **Typographie** : *Fraunces* (serif éditorial) pour les titres, *Inter* pour le texte courant.
-- **Palette** : ivoire chaud `#f6f1e7`, encre profonde `#0c1320`, accent or pâle `#b9925a`.
-- **Détails** : grain subtil sur toute la page, soulignés au survol, animations *reveal on scroll*, formes circulaires pour les CTA.
-
-## Personnalisation rapide
-
-| Élément          | Où le modifier                                      |
-|------------------|-----------------------------------------------------|
-| Email / téléphone| `index.html` → section `#contact` (`mailto:` / `tel:`) |
-| Webhook & agents | `scripts/config.js` → `WEBHOOK_URL`, `AGENT_IDS`    |
-| Pré-prompts vocaux | `scripts/config.js` → `USE_CASES`                 |
-| Stock affiché    | `data/stock.json`                                   |
-| Commandes        | `data/orders.json`                                  |
-| Couleurs         | `styles/base/tokens.css` → bloc `:root`             |
-
-## Brancher un vrai backend (plus tard)
-
-- **Formulaire de contact** : pointer le `submit` vers Formspree / Resend / une fonction Vercel.
-- **Agent vocal réel** : remplacer la simulation JS par un widget [Vapi](https://vapi.ai/) ou [Retell](https://retellai.com/) (chacun fournit un snippet `<script>` + un bouton « call »).
-- **Stock & commandes** : connecter à une API (Supabase, Strapi, ou votre propre backend Node/Spring).
-
-## Déploiement
-
-Hébergement actuel : Infomaniak (Apache + PHP).
-
-1. Envoyer tous les fichiers, dont le dossier `api/` (avec son `.htaccess`).
-2. Sur l'hébergement, copier `api/config.example.php` en `api/config.php` et y mettre la
-   clé API Retell (tableau de bord Retell › API Keys) et un sel aléatoire.
-3. Vérifier `https://zmsolutions.fr/api/retell-web-call.php` : une visite directe doit
-   répondre `{"error":"POST uniquement"}`, et `api/config.php` doit être refusé (403).
-4. Optionnel : chez Twilio, mettre `https://zmsolutions.fr/api/whatsapp-offline.php` en
-   *Fallback URL* de l'expéditeur WhatsApp (message clair si le bot ne répond pas).
-
-Sans PHP, le reste du site est 100 % statique et tout hébergeur convient :
-
-- **Vercel** / **Netlify** — déposez le dossier, c'est en ligne en 30 secondes.
-- **GitHub Pages** — push sur un repo, activer Pages.
-- **OVH / o2switch** — FTP du dossier dans `www/`.
-
-## Accessibilité
-
-- Navigation clavier complète (focus visible, `aria-label`, `role="tab"`).
-- `prefers-reduced-motion` respecté (animations désactivées).
-- Contraste AA sur l'ensemble des textes.
-
----
-
-Conçu & développé pour Zouadi Mouad — 2026.
+Le bouton et le QR code ouvrent la conversation avec le numéro de démo (+33 9 39 24 73 13), branché sur le bot n8n
+hébergé (n8n.zmsolutions.fr). `api/whatsapp-offline.php` est la réponse de secours à déclarer comme « Fallback URL »
+chez Twilio si le bot ne répond pas.

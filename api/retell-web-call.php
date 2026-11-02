@@ -2,12 +2,12 @@
 /**
  * Démo « agent vocal » du site : crée un appel web Retell et renvoie son access_token.
  *
- * Remplace le webhook n8n : hébergé avec le site, il fonctionne même quand le PC
- * de développement est éteint. Même contrat que l'ancien webhook :
- *   POST { agentId, prompt }  ->  200 { access_token, call_id }
+ * Hébergé avec le site : il fonctionne sans le PC de développement.
+ *   POST { useCase }  ->  200 { access_token, call_id }
  *
- * Garde-fous (le crédit Retell est payant) : agents autorisés uniquement, texte
- * limité, origine du site, plafond d'appels par heure et par adresse IP, et par jour.
+ * Le rôle de l'agent vient de use-cases.php (versionné), jamais du navigateur.
+ * Garde-fous (le crédit Retell est payant) : cas d'usage connus uniquement, origine
+ * du site, plafond d'appels par heure et par adresse IP, et par jour.
  * La clé API est dans config.php (non versionné, protégé par .htaccess).
  */
 declare(strict_types=1);
@@ -48,14 +48,13 @@ if ($origin === '' || !in_array($origin, $allowedOrigins, true)) {
 }
 
 $in = json_decode((string) file_get_contents('php://input'), true);
-$agentId = is_array($in) ? (string) ($in['agentId'] ?? '') : '';
-$prompt = is_array($in) ? trim((string) ($in['prompt'] ?? '')) : '';
-if (!in_array($agentId, $cfg['agent_ids'] ?? [], true)) {
-    reply(400, ['error' => 'Agent inconnu']);
+$useCase = is_array($in) ? (string) ($in['useCase'] ?? $in['use_case'] ?? '') : '';
+$useCases = require __DIR__ . '/use-cases.php';
+if (!isset($useCases[$useCase])) {
+    reply(400, ['error' => 'Cas d\'usage inconnu']);
 }
-if (mb_strlen($prompt) > (int) ($cfg['max_prompt_chars'] ?? 8000)) {
-    reply(400, ['error' => 'Texte trop long']);
-}
+$agentId = (string) $useCases[$useCase]['agent_id'];
+$prompt = trim((string) $useCases[$useCase]['prompt']);
 
 // Plafonds : fichier JSON verrouillé dans le dossier temporaire du serveur (IP hachée, jamais stockée en clair).
 $now = time();
@@ -87,7 +86,7 @@ $body = ['agent_id' => $agentId];
 if ($prompt !== '') {
     $body['retell_llm_dynamic_variables'] = ['prompt_dynamique' => $prompt];
 }
-$ch = curl_init('https://api.retellai.com/v2/create-web-call');
+$ch = curl_init((string) ($cfg['retell_url'] ?? 'https://api.retellai.com/v2/create-web-call'));
 curl_setopt_array($ch, [
     CURLOPT_POST => true,
     CURLOPT_RETURNTRANSFER => true,

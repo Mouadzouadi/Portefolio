@@ -26,12 +26,11 @@
 @import url("sections/cards.css");
 @import url("sections/agent.css?v=5");
 @import url("sections/whatsapp.css?v=1");
-@import url("sections/stock.css");
-@import url("sections/orders.css");
 @import url("sections/shop.css");
 @import url("sections/pricing.css");
 @import url("sections/faq.css");
 @import url("sections/contact.css");
+@import url("sections/page.css");
 
 /* --- Responsive (toujours en dernier pour overrides) --- */
 @import url("utils/responsive.css?v=5");

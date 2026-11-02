@@ -1,25 +1,14 @@
 /**
- * Agent vocal en direct — intégration Retell Web SDK + n8n.
+ * Démo vocale en direct (Retell Web SDK).
  *
- * Flux :
- *   1. L'utilisateur choisit un cas d'usage  → le textarea se remplit
- *      d'un prompt système de base (modifiable en direct).
- *   2. Au clic sur « Démarrer l'appel », on POST le prompt (modifié)
- *      + l'identifiant de l'agent vers le webhook n8n.
- *   3. n8n renvoie un `access_token` Retell généré dynamiquement.
- *   4. On démarre l'appel web : retellClient.startCall({ accessToken }).
- *   5. La transcription arrive en direct via les événements du SDK et
- *      s'affiche en bulles dans la zone de chat à gauche.
- *   6. Fin d'appel (`call_ended` ou « Raccrocher ») → nettoyage + message.
- *
- * NB transcription : le SDK Retell officiel expose la transcription en
- * direct via l'événement `update` (un tableau de tours { role, content }).
- * Les « agent_transcript / user_transcript » demandés correspondent à ce
- * flux : on lit donc `update.transcript` et on rend une bulle par tour,
- * en distinguant le rôle `agent` (IA) du rôle `user` (client).
+ *   1. Le visiteur choisit un cas d'usage (restaurant, coiffeur, garage).
+ *   2. « Démarrer l'appel » : POST { useCase } vers api/retell-web-call.php, qui crée l'appel
+ *      chez Retell avec le rôle défini côté serveur et renvoie un access_token.
+ *   3. retellClient.startCall({ accessToken }) ; la transcription arrive par l'événement `update`.
+ *   4. Fin d'appel (`call_ended` ou « Raccrocher ») : nettoyage et message.
  */
 import { $, $$ } from '../utils/dom.js';
-import { WEBHOOK_URL, RETELL_SDK_URL, USE_CASES } from '../config.js?v=6';
+import { ENDPOINT, RETELL_SDK_URL, USE_CASES } from '../demo-config.js?v=8';
 
 const BAR_COUNT = 32;
 
@@ -38,20 +27,16 @@ export function initAgent() {
     shop:       $('#agentShop'),
     caption:    $('#agentCaption'),
     transcript: $('#agentTranscript'),
-    prompt:     $('#agentPrompt'),
-    promptPreview: $('#agentPromptOpen'),
-    promptText:    $('#agentPromptText'),
-    promptModal:   $('#promptModal'),
     startBtn:   $('#agentStart'),
     stopBtn:    $('#agentStop'),
     waveBars:   $('#waveBars'),
     choices:    $('.agent__choices'),
   };
 
-  // Clés des cas d'usage (l'ordre de config.js fait foi).
+  // Clés des cas d'usage (l'ordre de demo-config.js fait foi).
   const useCaseKeys = Object.keys(USE_CASES);
   if (useCaseKeys.length === 0) {
-    console.error('[agent] Aucun cas d\'usage défini dans config.js (USE_CASES).');
+    console.error('[agent] Aucun cas d\'usage défini dans demo-config.js (USE_CASES).');
     return;
   }
 
@@ -115,7 +100,6 @@ export function initAgent() {
   function toggleControls(active) {
     els.startBtn.disabled = active;
     els.stopBtn.disabled = !active;
-    els.prompt.disabled = active;
     chips.forEach((c) => (c.disabled = active));
     agent.classList.toggle('is-active', active);
   }
@@ -124,7 +108,7 @@ export function initAgent() {
     els.transcript.innerHTML = `
       <div class="agent__placeholder">
         <p>La transcription apparaîtra ici, en direct.</p>
-        <small>Choisissez un cas d'usage, ajustez le prompt, puis lancez l'appel.</small>
+        <small>Choisissez un commerce, lancez l'appel et parlez comme un client.</small>
       </div>`;
     els.caption.textContent = "Appuyez sur le bouton pour démarrer l'appel.";
   }
@@ -210,7 +194,7 @@ export function initAgent() {
     stopWave();
   }
 
-  /* ---------- SDK + n8n ---------- */
+  /* ---------- SDK + serveur ---------- */
 
   /** Charge le SDK Retell à la demande (évite de casser la page si le CDN échoue). */
   async function loadRetellSDK() {
@@ -221,19 +205,12 @@ export function initAgent() {
     return RetellWebClient;
   }
 
-  /**
-   * Envoie le prompt (modifié par l'utilisateur) + l'agent_id à n8n,
-   * et récupère l'access_token Retell renvoyé.
-   */
+  /** Demande au serveur du site un access_token Retell pour ce cas d'usage. */
   async function requestAccessToken(useCase) {
-    const res = await fetch(WEBHOOK_URL, {
+    const res = await fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        agentId: USE_CASES[useCase].agentId,
-        use_case: useCase,
-        prompt: els.prompt.value.trim(),
-      }),
+      body: JSON.stringify({ useCase }),
     });
 
     if (!res.ok) {
@@ -348,42 +325,10 @@ export function initAgent() {
   }
 
   /* ---------- Sélecteur de cas d'usage ---------- */
-  function updatePromptPreview() {
-    if (els.promptText) els.promptText.textContent = els.prompt.value;
-  }
-
   function selectUseCase(useCase) {
-    const cfg = USE_CASES[useCase] || {};
     currentUseCase = useCase;
-    els.prompt.value = cfg.prompt || '';
-    els.shop.textContent = cfg.shopName || '';
-    updatePromptPreview();
+    els.shop.textContent = (USE_CASES[useCase] || {}).shopName || '';
     resetTranscript();
-  }
-
-  /* ---------- Popup d'édition du prompt ---------- */
-  function openPromptModal() {
-    if (running || !els.promptModal) return;
-    els.promptModal.classList.add('is-open');
-    els.promptModal.setAttribute('aria-hidden', 'false');
-    els.prompt.focus();
-  }
-  function closePromptModal() {
-    if (!els.promptModal) return;
-    els.promptModal.classList.remove('is-open');
-    els.promptModal.setAttribute('aria-hidden', 'true');
-    updatePromptPreview();
-  }
-
-  if (els.promptPreview) els.promptPreview.addEventListener('click', openPromptModal);
-  if (els.promptModal) {
-    els.promptModal.querySelectorAll('[data-prompt-close]').forEach((b) =>
-      b.addEventListener('click', closePromptModal)
-    );
-    els.prompt.addEventListener('input', updatePromptPreview);
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && els.promptModal.classList.contains('is-open')) closePromptModal();
-    });
   }
 
   chips.forEach((c) =>
@@ -398,6 +343,6 @@ export function initAgent() {
   els.startBtn.addEventListener('click', startCall);
   els.stopBtn.addEventListener('click', () => endCall(false));
 
-  // État initial : pré-remplir le prompt du premier cas d'usage.
+  // État initial : premier cas d'usage.
   selectUseCase(currentUseCase);
 }

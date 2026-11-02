@@ -62,3 +62,6 @@ button { font-family: inherit; cursor: pointer; }
   transition: opacity .8s var(--ease), transform .8s var(--ease);
 }
 .reveal.is-in { opacity: 1; transform: none; }
+
+/* <picture> ne doit pas casser la mise en page des images (photo du hero en hauteur 100 %). */
+picture { display: contents; }

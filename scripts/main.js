@@ -5,7 +5,7 @@
  * indépendante. Si un module échoue, les autres continuent.
  *
  * Architecture :
- *   /data        — JSON sources (stock, orders, menu)
+ *   /data        — JSON source (menu de la démo boutique)
  *   /scripts
  *     /utils     — helpers DOM, fetch, format
  *     /modules   — un fichier par feature (nav, agent, stock, …)
@@ -14,9 +14,7 @@
 import { loadJSON } from './utils/dom.js';
 import { initNav }     from './modules/nav.js';
 import { initReveal }  from './modules/reveal.js';
-import { initAgent }   from './modules/agent.js?v=6';
-import { initStock }   from './modules/stock.js';
-import { initOrders }  from './modules/orders.js';
+import { initAgent }   from './modules/agent.js?v=8';
 import { initShop }    from './modules/shop.js';
 import { initContact } from './modules/contact.js';
 
@@ -33,16 +31,9 @@ async function main() {
   safeInit('contact', initContact);
   safeInit('agent', initAgent);
 
-  // Chargement parallèle des données — chaque échec est local.
-  const [stock, orders, menu] = await Promise.all([
-    loadJSON('data/stock.json').catch((e) => { console.error(e); return []; }),
-    loadJSON('data/orders.json').catch((e) => { console.error(e); return []; }),
-    loadJSON('data/menu.json').catch((e) => { console.error(e); return []; }),
-  ]);
-
-  safeInit('stock',  () => initStock(stock));
-  safeInit('orders', () => initOrders(orders));
-  safeInit('shop',   () => initShop(menu));
+  // Démo boutique : son menu est chargé à part (un échec ne touche que la démo).
+  const menu = await loadJSON('data/menu.json').catch((e) => { console.error(e); return []; });
+  safeInit('shop', () => initShop(menu));
 }
 
 if (document.readyState === 'loading') {

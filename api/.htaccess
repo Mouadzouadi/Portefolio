@@ -1,5 +1,5 @@
 # Seul l'endpoint de démo est accessible ; la configuration (clé Retell) ne l'est jamais.
 Options -Indexes
-<FilesMatch "^(config|config\.example)\.php$">
+<FilesMatch "^(config|config\.example|use-cases)\.php$">
     Require all denied
 </FilesMatch>
