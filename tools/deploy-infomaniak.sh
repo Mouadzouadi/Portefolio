@@ -39,7 +39,7 @@ fi
 rm -f "$DEST/scripts/config.js" "$DEST/scripts/config.example.js"
 
 if [ -f "$DEST/api/config.php" ]; then
-  chmod 600 "$DEST/api/config.php"
+  chmod 640 "$DEST/api/config.php"  # lisible par PHP (meme compte), jamais servi : .htaccess le bloque
   echo "api/config.php present (cle Retell)."
 else
   echo "ATTENTION : api/config.php manque. Creez-le (voir etape 3 du guide) pour que la demo vocale fonctionne."
