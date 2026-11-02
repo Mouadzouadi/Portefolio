@@ -8,7 +8,7 @@
  *   4. Fin d'appel (`call_ended` ou « Raccrocher ») : nettoyage et message.
  */
 import { $, $$ } from '../utils/dom.js';
-import { ENDPOINT, RETELL_SDK_URL, USE_CASES } from '../demo-config.js?v=8';
+import { ENDPOINT, RETELL_SDK_URL, USE_CASES } from '../demo-config.js?v=9';
 
 const BAR_COUNT = 32;
 
@@ -228,7 +228,7 @@ export function initAgent() {
     if (!accessToken) {
       throw new Error('Impossible de récupérer la session. Réessayez dans un instant.');
     }
-    return { accessToken, callId: data.call_id || data.callId };
+    return { accessToken, callId: data.call_id || data.callId, transport: data.transport || undefined, iceServers: data.ice_servers || undefined, url: data.url || undefined };
   }
 
   /** Branche les écouteurs d'événements du SDK Retell. */
@@ -276,14 +276,15 @@ export function initAgent() {
 
     try {
       const SDK = await loadRetellSDK();
-      const { accessToken } = await requestAccessToken(currentUseCase);
+      const { accessToken, transport, iceServers, url } = await requestAccessToken(currentUseCase);
 
       client = new SDK();
       wireEvents();
 
       // Compatibilité : startCall (API actuelle) ou startWebCall (ancienne).
       if (typeof client.startCall === 'function') {
-        await client.startCall({ accessToken });
+        // SDK 3.x : RetellWebClient garde les mêmes événements (update, agent_start_talking) que la 2.x.
+        await client.startCall({ accessToken, transport, iceServers, url });
       } else {
         await client.startWebCall({ accessToken });
       }

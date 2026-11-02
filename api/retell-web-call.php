@@ -3,7 +3,8 @@
  * Démo « agent vocal » du site : crée un appel web Retell et renvoie son access_token.
  *
  * Hébergé avec le site : il fonctionne sans le PC de développement.
- *   POST { useCase }  ->  200 { access_token, call_id }
+ *   POST { useCase }  ->  200 { access_token, call_id, transport, ice_servers }
+ * Retell : /v3/create-web-call (la v2 est refusee depuis le 30/09/2026).
  *
  * Le rôle de l'agent vient de use-cases.php (versionné), jamais du navigateur.
  * Garde-fous (le crédit Retell est payant) : cas d'usage connus uniquement, origine
@@ -86,7 +87,7 @@ $body = ['agent_id' => $agentId];
 if ($prompt !== '') {
     $body['retell_llm_dynamic_variables'] = ['prompt_dynamique' => $prompt];
 }
-$ch = curl_init((string) ($cfg['retell_url'] ?? 'https://api.retellai.com/v2/create-web-call'));
+$ch = curl_init((string) ($cfg['retell_url'] ?? 'https://api.retellai.com/v3/create-web-call'));
 curl_setopt_array($ch, [
     CURLOPT_POST => true,
     CURLOPT_RETURNTRANSFER => true,
@@ -100,7 +101,15 @@ curl_close($ch);
 
 $data = is_string($raw) ? json_decode($raw, true) : null;
 if ($status < 200 || $status >= 300 || empty($data['access_token'])) {
-    error_log('[zm-retell-demo] Retell HTTP ' . $status);
+    // Code et message de Retell dans le journal (jamais la cle) : de quoi comprendre un refus.
+    error_log('[zm-retell-demo] Retell HTTP ' . $status . ' ' . substr((string) ($data['message'] ?? ''), 0, 200));
     reply(502, ['error' => 'Service vocal indisponible']);
 }
-reply(200, ['access_token' => $data['access_token'], 'call_id' => $data['call_id'] ?? null]);
+// La v3 indique comment se connecter (transport « gateway », serveurs ICE) : le SDK du navigateur en a besoin.
+reply(200, [
+    'access_token' => $data['access_token'],
+    'call_id' => $data['call_id'] ?? null,
+    'transport' => $data['transport'] ?? null,
+    'ice_servers' => $data['ice_servers'] ?? null,
+    'url' => $data['url'] ?? null,
+]);

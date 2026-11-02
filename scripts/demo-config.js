@@ -6,8 +6,8 @@
 /** Endpoint PHP du site qui crée l'appel Retell et renvoie l'access_token. */
 export const ENDPOINT = 'api/retell-web-call.php';
 
-/** SDK Retell, version figée (une nouvelle version majeure peut changer l'API). */
-export const RETELL_SDK_URL = 'https://esm.sh/retell-client-js-sdk@2.0.8';
+/** SDK Retell, version figée. La 3.x sait se connecter en « gateway » (appels créés par /v3/create-web-call). */
+export const RETELL_SDK_URL = 'https://esm.sh/retell-client-js-sdk@3.0.3';
 
 /** Un bouton par cas d'usage ; mêmes clés que api/use-cases.php. Le premier est sélectionné par défaut. */
 export const USE_CASES = {
