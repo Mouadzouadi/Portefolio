@@ -36,7 +36,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles/site.css?v=10" />
+  <link rel="stylesheet" href="/styles/site.css?v=11" />
 
   <!-- ===== Données structurées : entreprise locale (Google) ===== -->
   <script type="application/ld+json">
@@ -173,22 +173,21 @@
 
   <!-- ============== HERO PERSONNEL ============== -->
   <section class="hero" id="top">
-    <div class="hero__grid hero__grid--solo">
+    <div class="hero__grid hero__grid--intro">
       <div class="hero__content">
+        <p class="hero__meta">Mouad Zouadi — ingénieur logiciel et IA</p>
         <h1 class="hero__title">
-          Bonjour, je suis <em>Mouad</em>, ingénieur logiciel et intelligence artificielle.<br />
-          Je conçois vos outils numériques <span class="hl">sur-mesure</span>.
+          Je conçois les outils numériques <span class="hl">sur-mesure</span> de votre commerce.
         </h1>
 
         <p class="hero__lede">
-          Je conçois <strong>des outils numériques sur-mesure</strong> pour les commerces, <strong>partout en France</strong>&nbsp;:
-          agent vocal qui répond à votre téléphone 24/7, commande par WhatsApp, connexion à votre caisse ou tablette
-          de commande, automatisations, applications, sites… à peu près tout ce qui touche au numérique.
+          Agent vocal qui répond à votre téléphone 24/7, commande par WhatsApp, connexion à votre caisse
+          ou tablette de commande, automatisations, applications, sites… <strong>à peu près tout ce qui touche
+          au numérique</strong>, partout en France.
         </p>
-        <p class="hero__lede">
-          Ingénieur en formation à l'<strong>ESILV</strong>, en alternance chez <strong>Procter <span class="amp">&amp;</span> Gamble</strong>
-          où je développe des solutions IA en production. Pas de template générique, pas d'abonnement caché&nbsp;:
-          chaque outil est pensé pour <em>votre métier</em>.
+        <p class="hero__cred">
+          Ingénieur ESILV, en alternance chez Procter <span class="amp">&amp;</span> Gamble sur des solutions IA en production.
+          Pas de template, pas d'abonnement caché.
         </p>
 
         <div class="hero__ctas">
@@ -201,6 +200,23 @@
           <a href="#contact" class="btn btn--ghost">Travailler avec moi →</a>
         </div>
       </div>
+
+      <!-- Encart des demos : remplace la photo, mene directement aux essais. -->
+      <aside class="hero__try" aria-label="Démos à essayer">
+        <p class="hero__try-title">Essayez en direct</p>
+        <a href="#agent" class="hero__try-item">
+          <span class="hero__try-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span>
+          <span><strong>Agent vocal</strong><small>Appelez-le depuis le navigateur et passez commande.</small></span>
+        </a>
+        <a href="#whatsapp" class="hero__try-item">
+          <span class="hero__try-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"/></svg></span>
+          <span><strong>Commande WhatsApp</strong><small>Scannez le QR code et écrivez au restaurant de démo.</small></span>
+        </a>
+        <a href="#metier" class="hero__try-item">
+          <span class="hero__try-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg></span>
+          <span><strong>Site de commande</strong><small>Remplissez un panier, sans commission.</small></span>
+        </a>
+      </aside>
     </div>
   </section>
 

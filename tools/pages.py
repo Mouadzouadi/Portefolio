@@ -11,7 +11,7 @@ import datetime, html, json, os, re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://zmsolutions.fr"
-CSS_VERSION = "10"
+CSS_VERSION = "11"
 
 NAV = [("/#valeur", "Offres"), ("/agent-vocal-ia-restaurant/", "Agent vocal"), ("/commande-whatsapp-restaurant/", "WhatsApp"),
        ("/creation-site-web/", "Site web"), ("/#tarifs", "Tarifs")]
