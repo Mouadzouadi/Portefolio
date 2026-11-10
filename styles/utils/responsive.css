@@ -40,7 +40,6 @@
 
   /* Hero : photo en haut, plus de sticky */
   .hero__grid    { grid-template-columns: 1fr; }
-  .hero__media   { position: static; max-width: 320px; }
   .hero__columns { grid-template-columns: 1fr; gap: 32px; }
 
   /* Loyalty : phone centré + badges en ligne dessous */
