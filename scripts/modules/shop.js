@@ -16,7 +16,22 @@ export function initShop(menu) {
     cartCta:   $('#shopCheckout'),
     toast:     $('#shopToast'),
     cats:      $$('.shop__cat'),
+    prev:      $('#shopPrev'),
+    next:      $('#shopNext'),
   };
+
+  // Carrousel : fleches actives seulement s'il reste des plats de ce cote.
+  function updateNav() {
+    if (!els.prev || !els.next) return;
+    const max = menuEl.scrollWidth - menuEl.clientWidth - 2;
+    els.prev.disabled = menuEl.scrollLeft <= 2;
+    els.next.disabled = menuEl.scrollLeft >= max;
+  }
+  const slide = (dir) => menuEl.scrollBy({ left: dir * Math.max(menuEl.clientWidth * 0.8, 200), behavior: 'smooth' });
+  els.prev?.addEventListener('click', () => slide(-1));
+  els.next?.addEventListener('click', () => slide(1));
+  menuEl.addEventListener('scroll', updateNav, { passive: true });
+  window.addEventListener('resize', updateNav);
 
   const cart = new Map(); // id → { item, qty }
   let currentCat = 'all';
@@ -42,6 +57,8 @@ export function initShop(menu) {
         </article>`;
     }).join('') ||
       `<p style="padding:24px;color:#888;grid-column:1/-1;text-align:center;">Aucun plat dans cette catégorie.</p>`;
+    menuEl.scrollLeft = 0;
+    requestAnimationFrame(updateNav);
   }
 
   function renderCart() {

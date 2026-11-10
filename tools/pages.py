@@ -11,10 +11,10 @@ import datetime, html, json, os, re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://zmsolutions.fr"
-CSS_VERSION = "9"
+CSS_VERSION = "10"
 
 NAV = [("/#valeur", "Offres"), ("/agent-vocal-ia-restaurant/", "Agent vocal"), ("/commande-whatsapp-restaurant/", "WhatsApp"),
-       ("/creation-site-web-blois/", "Site web"), ("/#tarifs", "Tarifs")]
+       ("/creation-site-web/", "Site web"), ("/#tarifs", "Tarifs")]
 
 LAYOUT = """<!doctype html>
 <html lang="fr">
@@ -101,13 +101,13 @@ FOOTER = """  <footer class="footer">
         <picture><source srcset="/img/logo.webp" type="image/webp" /><img src="/img/logo.png" alt="" width="176" height="96" loading="lazy" /></picture>
         <div>
           <strong>ZM Solutions</strong>
-          <span>Zouadi Mouad — Ingénieur Logiciel et Intelligence Artificielle — Blois (41)</span>
+          <span>Zouadi Mouad — Ingénieur Logiciel et Intelligence Artificielle</span>
         </div>
       </div>
       <nav class="footer__nav" aria-label="Pied de page">
         <a href="/agent-vocal-ia-restaurant/">Agent vocal IA pour restaurant</a>
         <a href="/commande-whatsapp-restaurant/">Commande WhatsApp</a>
-        <a href="/creation-site-web-blois/">Création de site web à Blois</a>
+        <a href="/creation-site-web/">Création de site web</a>
         <a href="/#contact">Contact</a>
         <a href="/mentions-legales/">Mentions légales</a>
       </nav>
@@ -123,7 +123,7 @@ def esc(s):
 
 
 def text(s):
-    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", s)).strip()
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", s)).replace("\xa0", " ")).strip()
 
 
 def render(slug, meta, body):
@@ -136,7 +136,7 @@ def render(slug, meta, body):
                       "description": meta["description"],
                       "provider": {"@type": "ProfessionalService", "name": "ZM Solutions", "url": SITE + "/", "telephone": "+33771032375",
                                    "address": {"@type": "PostalAddress", "addressLocality": "Blois", "postalCode": "41000", "addressCountry": "FR"}},
-                      "areaServed": [{"@type": "City", "name": "Blois"}, {"@type": "AdministrativeArea", "name": "Loir-et-Cher"}, {"@type": "Country", "name": "France"}]})
+                      "areaServed": [{"@type": "Country", "name": "France"}]})
     faq = meta.get("faq") or []
     if faq:
         graph.append({"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": text(q), "acceptedAnswer": {"@type": "Answer", "text": text(a)}} for q, a in faq]})

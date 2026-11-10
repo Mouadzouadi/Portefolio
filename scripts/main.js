@@ -14,8 +14,8 @@
 import { loadJSON } from './utils/dom.js';
 import { initNav }     from './modules/nav.js';
 import { initReveal }  from './modules/reveal.js';
-import { initAgent }   from './modules/agent.js?v=11';
-import { initShop }    from './modules/shop.js';
+import { initAgent }   from './modules/agent.js?v=12';
+import { initShop }    from './modules/shop.js?v=12';
 import { initContact } from './modules/contact.js';
 
 /** Lance un module en isolant ses erreurs (un crash n'arrête pas les autres). */

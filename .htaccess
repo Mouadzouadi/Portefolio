@@ -2,6 +2,8 @@
 # Chaque bloc est conditionnel : un module absent ne casse pas le site.
 Options -Indexes
 ErrorDocument 404 /404.html
+# Ancienne adresse de la page site web (avant « partout en France »).
+Redirect 301 /creation-site-web-blois/ /creation-site-web/
 DirectoryIndex index.html
 
 # Les outils de construction et la documentation ne sont pas servis.
