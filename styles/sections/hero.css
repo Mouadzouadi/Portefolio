@@ -18,7 +18,7 @@
 .hero__grid--intro { grid-template-columns: 1.35fr 0.85fr; align-items: center; }
 .hero__cred {
   max-width: 60ch; margin: 0 0 26px; font-size: 14px;
-  color: color-mix(in oklab, var(--ink) 58%, transparent);
+  color: color-mix(in oklab, var(--ink) 72%, transparent);
 }
 .hero__try {
   background: var(--ink); color: var(--paper);
@@ -47,12 +47,12 @@
 }
 .hero__try-icon svg { width: 20px; height: 20px; }
 .hero__try-item strong { display: block; font-weight: 600; font-size: 15.5px; }
-.hero__try-item small { display: block; font-size: 13px; color: color-mix(in oklab, var(--paper) 68%, transparent); }
+.hero__try-item small { display: block; font-size: 13px; color: color-mix(in oklab, var(--paper) 72%, transparent); }
 .hero__content { min-width: 0; }
 .hero__meta {
   display: inline-flex; align-items: center; gap: 10px;
   font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
-  color: color-mix(in oklab, var(--ink) 60%, transparent);
+  color: color-mix(in oklab, var(--ink) 72%, transparent);
   margin-bottom: 24px;
 }
 
@@ -108,13 +108,13 @@
 .timeline__date {
   display: block;
   font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
-  color: color-mix(in oklab, var(--ink) 55%, transparent);
+  color: color-mix(in oklab, var(--ink) 72%, transparent);
   margin-bottom: 4px;
 }
 .timeline strong { display: block; font-size: 14px; font-weight: 600; }
 .timeline span:not(.timeline__date) {
   display: block; font-size: 13px;
-  color: color-mix(in oklab, var(--ink) 65%, transparent);
+  color: color-mix(in oklab, var(--ink) 72%, transparent);
 }
 
 /* ===== Compétences (chips) ===== */

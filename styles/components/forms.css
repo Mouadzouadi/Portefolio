@@ -6,7 +6,7 @@
 .field--full { grid-column: 1 / -1; }
 .field label {
   font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
-  color: color-mix(in oklab, var(--paper) 55%, transparent);
+  color: color-mix(in oklab, var(--paper) 72%, transparent);
 }
 
 .field input,
@@ -31,7 +31,7 @@
 .check {
   display: inline-flex; gap: 10px; align-items: flex-start;
   font-size: 13px; cursor: pointer;
-  color: color-mix(in oklab, var(--paper) 70%, transparent);
+  color: color-mix(in oklab, var(--paper) 72%, transparent);
 }
 .check input { accent-color: var(--gold); margin-top: 2px; }
 
@@ -84,7 +84,7 @@
 .modal__form .field { display: flex; flex-direction: column; gap: 6px; }
 .modal__form .field label {
   font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
-  color: color-mix(in oklab, var(--ink) 60%, transparent);
+  color: color-mix(in oklab, var(--ink) 72%, transparent);
 }
 .modal__form .field input {
   background: #fff;

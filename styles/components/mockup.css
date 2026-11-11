@@ -65,7 +65,7 @@
   background: var(--paper-2);
   border-bottom: 1px solid var(--line);
   font-size: 12px;
-  color: color-mix(in oklab, var(--ink) 55%, transparent);
+  color: color-mix(in oklab, var(--ink) 72%, transparent);
 }
 .mockup__chrome span {
   width: 10px; height: 10px; border-radius: 50%;

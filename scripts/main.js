@@ -11,12 +11,12 @@
  *     /modules   — un fichier par feature (nav, agent, stock, …)
  *     main.js    — ce fichier (orchestration)
  */
-import { loadJSON } from './utils/dom.js';
-import { initNav }     from './modules/nav.js';
-import { initReveal }  from './modules/reveal.js';
-import { initAgent }   from './modules/agent.js?v=12';
-import { initShop }    from './modules/shop.js?v=12';
-import { initContact } from './modules/contact.js';
+import { loadJSON } from './utils/dom.js?v=3db957c402';
+import { initNav }     from './modules/nav.js?v=bf555d1cbe';
+import { initReveal }  from './modules/reveal.js?v=f8d5afbf75';
+import { initAgent }   from './modules/agent.js?v=33ea8764bc';
+import { initShop }    from './modules/shop.js?v=c6b08792cb';
+import { initContact } from './modules/contact.js?v=bbbaf37cc1';
 
 /** Lance un module en isolant ses erreurs (un crash n'arrête pas les autres). */
 function safeInit(name, fn) {

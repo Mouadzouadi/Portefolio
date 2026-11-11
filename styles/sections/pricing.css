@@ -53,19 +53,19 @@
 .pricing__target {
   font-size: 14px;
   line-height: 1.5;
-  color: color-mix(in oklab, var(--ink) 55%, transparent);
+  color: color-mix(in oklab, var(--ink) 72%, transparent);
   margin: 0;
 }
 
 .pricing__card--featured .pricing__target {
-  color: color-mix(in oklab, var(--paper) 65%, transparent);
+  color: color-mix(in oklab, var(--paper) 72%, transparent);
 }
 
 /* Indication de prix "À partir de…" */
 .pricing__from {
   margin: 8px 0 0;
   font-size: 14px;
-  color: color-mix(in oklab, var(--ink) 65%, transparent);
+  color: color-mix(in oklab, var(--ink) 72%, transparent);
 }
 .pricing__from strong {
   font-family: var(--serif);
@@ -74,7 +74,7 @@
   color: var(--ink);
 }
 .pricing__card--featured .pricing__from {
-  color: color-mix(in oklab, var(--paper) 70%, transparent);
+  color: color-mix(in oklab, var(--paper) 72%, transparent);
 }
 .pricing__card--featured .pricing__from strong {
   color: var(--gold-2);

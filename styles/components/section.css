@@ -17,7 +17,7 @@
 .section--soft > * { max-width: var(--maxw); margin-left: auto; margin-right: auto; }
 .section--dark .eyebrow,
 .section--dark .section__sub {
-  color: color-mix(in oklab, var(--paper) 70%, transparent);
+  color: color-mix(in oklab, var(--paper) 72%, transparent);
 }
 
 .section__head { max-width: 760px; margin-bottom: 56px; }
@@ -25,7 +25,7 @@
 .eyebrow {
   display: inline-block;
   font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
-  color: color-mix(in oklab, var(--ink) 55%, transparent);
+  color: color-mix(in oklab, var(--ink) 72%, transparent);
   margin-bottom: 18px;
 }
 .eyebrow--small { margin-bottom: 10px; }
@@ -37,9 +37,10 @@
   margin: 0 0 18px;
 }
 .section__title em { font-style: normal; font-weight: 500; color: color-mix(in oklab, var(--ink) 65%, var(--gold)); }
+.section--dark .section__title em { color: var(--gold-2); }
 .section__sub {
   font-size: clamp(15px, 1.2vw, 17px);
-  color: color-mix(in oklab, var(--ink) 70%, transparent);
+  color: color-mix(in oklab, var(--ink) 72%, transparent);
   max-width: 65ch; margin: 0;
 }
 
@@ -47,7 +48,7 @@
 .footer {
   padding: 48px var(--pad) 32px;
   background: var(--ink-2);
-  color: color-mix(in oklab, var(--paper) 70%, transparent);
+  color: color-mix(in oklab, var(--paper) 72%, transparent);
 }
 .footer__top {
   display: flex; justify-content: space-between; align-items: center;
@@ -70,7 +71,7 @@
   display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
   max-width: var(--maxw); margin: 24px auto 0;
   font-size: 12px;
-  color: color-mix(in oklab, var(--paper) 50%, transparent);
+  color: color-mix(in oklab, var(--paper) 72%, transparent);
 }
 
 /* Esperluette des noms propres (Procter & Gamble, Click & Collect) : celle de la police

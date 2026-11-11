@@ -2,7 +2,7 @@
  * Formulaire de contact : validation native + envoi via Formspree.
  * Créer un formulaire sur https://formspree.io et remplacer YOUR_FORM_ID.
  */
-import { $ } from '../utils/dom.js';
+import { $ } from '../utils/dom.js?v=3db957c402';
 
 const FORMSPREE_URL = 'https://formspree.io/f/xnjwabqj';
 

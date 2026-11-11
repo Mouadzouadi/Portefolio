@@ -35,7 +35,7 @@
 .wa__open svg { width: 20px; height: 20px; }
 .wa__web {
   font-size: 14px;
-  color: color-mix(in oklab, var(--ink) 65%, transparent);
+  color: color-mix(in oklab, var(--ink) 72%, transparent);
   text-decoration: underline; text-underline-offset: 3px;
   text-decoration-color: var(--gold);
 }
@@ -53,14 +53,14 @@
 }
 .wa__qr figcaption {
   max-width: 190px; font-size: 14px; line-height: 1.5;
-  color: color-mix(in oklab, var(--ink) 65%, transparent);
+  color: color-mix(in oklab, var(--ink) 72%, transparent);
 }
 
 .wa__note {
   margin-top: 28px; padding-top: 20px;
   border-top: 1px solid var(--line);
   font-size: 13px; line-height: 1.6;
-  color: color-mix(in oklab, var(--ink) 58%, transparent);
+  color: color-mix(in oklab, var(--ink) 72%, transparent);
 }
 
 /* --- Aperçu de conversation --- */

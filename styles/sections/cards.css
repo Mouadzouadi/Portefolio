@@ -38,7 +38,7 @@
 .cards__more {
   margin: 32px auto 0; max-width: 60ch; text-align: center;
   font-size: 14px;
-  color: color-mix(in oklab, var(--ink) 60%, transparent);
+  color: color-mix(in oklab, var(--ink) 72%, transparent);
 }
 .cards__more em {
   font-family: var(--serif); font-style: italic; font-size: 18px;
@@ -64,7 +64,7 @@
 
 .card__num {
   font-family: var(--serif); font-size: 14px;
-  color: var(--gold); margin-bottom: 14px; letter-spacing: .1em;
+  color: color-mix(in oklab, var(--gold) 55%, var(--ink)); margin-bottom: 14px; letter-spacing: .1em;
 }
 .card h3 {
   font-family: var(--serif); font-weight: 500;

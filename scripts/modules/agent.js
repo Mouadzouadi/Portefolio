@@ -7,8 +7,8 @@
  *   3. retellClient.startCall({ accessToken }) ; la transcription arrive par l'événement `update`.
  *   4. Fin d'appel (`call_ended` ou « Raccrocher ») : nettoyage et message.
  */
-import { $, $$ } from '../utils/dom.js';
-import { ENDPOINT, RETELL_SDK_URL, USE_CASES } from '../demo-config.js?v=11';
+import { $, $$ } from '../utils/dom.js?v=3db957c402';
+import { ENDPOINT, RETELL_SDK_URL, USE_CASES } from '../demo-config.js?v=054a34374a';
 
 const BAR_COUNT = 32;
 

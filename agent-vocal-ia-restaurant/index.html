@@ -18,12 +18,13 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="/img/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="/img/icon-192.png" type="image/png" sizes="192x192" />
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles/site.css?v=11" />
+  <!-- Polices hebergees sur le site (styles/base/fonts.css) : prechargees, elles s'affichent sans attendre le CSS. -->
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/playfair-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/styles/site.css?v=76b6db602f" />
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -52,16 +53,7 @@
       "url": "https://zmsolutions.fr/agent-vocal-ia-restaurant/",
       "description": "Un agent vocal IA qui répond au téléphone de votre restaurant 24h/24, prend les commandes et les envoie sur votre tablette de commande. Démo gratuite en ligne.",
       "provider": {
-        "@type": "ProfessionalService",
-        "name": "ZM Solutions",
-        "url": "https://zmsolutions.fr/",
-        "telephone": "+33771032375",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Blois",
-          "postalCode": "41000",
-          "addressCountry": "FR"
-        }
+        "@id": "https://zmsolutions.fr/#organization"
       },
       "areaServed": [
         {
@@ -123,8 +115,8 @@
   <div class="grain" aria-hidden="true"></div>
 
   <header class="nav" id="nav">
-    <a href="/" class="nav__brand" aria-label="ZM Solutions, accueil">
-      <picture><source srcset="/img/logo.webp" type="image/webp" /><img src="/img/logo.png" alt="" class="nav__logo" width="176" height="96" /></picture>
+    <a href="/" class="nav__brand">
+      <picture><source srcset="/img/logo.webp" type="image/webp" /><img src="/img/logo.png" alt="" class="nav__logo" width="102" height="56" /></picture>
       <span class="nav__wordmark">
         <span class="nav__wordmark-main">ZM Solutions</span>
         <span class="nav__wordmark-sub">Digitalisation · IA · Sur-mesure</span>
@@ -226,7 +218,7 @@
   <footer class="footer">
     <div class="footer__top">
       <div class="footer__brand">
-        <picture><source srcset="/img/logo.webp" type="image/webp" /><img src="/img/logo.png" alt="" width="176" height="96" loading="lazy" /></picture>
+        <picture><source srcset="/img/logo.webp" type="image/webp" /><img src="/img/logo.png" alt="" width="102" height="56" loading="lazy" /></picture>
         <div>
           <strong>ZM Solutions</strong>
           <span>Zouadi Mouad — Ingénieur Logiciel et Intelligence Artificielle</span>
@@ -244,6 +236,6 @@
       <small>© <span id="year"></span> ZM Solutions — Tous droits réservés.</small>
     </div>
   </footer>
-  <script type="module" src="/scripts/page.js?v=11"></script>
+  <script type="module" src="/scripts/page.js?v=83d33ae494"></script>
 </body>
 </html>

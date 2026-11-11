@@ -21,7 +21,7 @@
 .nav__wordmark-main { font-family: var(--serif); font-weight: 500; font-size: 19px; }
 .nav__wordmark-sub  {
   font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
-  color: color-mix(in oklab, var(--ink) 55%, transparent);
+  color: color-mix(in oklab, var(--ink) 72%, transparent);
 }
 
 .nav__links { display: flex; align-items: center; gap: 28px; }

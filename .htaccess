@@ -2,9 +2,28 @@
 # Chaque bloc est conditionnel : un module absent ne casse pas le site.
 Options -Indexes
 ErrorDocument 404 /404.html
-# Ancienne adresse de la page site web (avant « partout en France »).
-Redirect 301 /creation-site-web-blois/ /creation-site-web/
 DirectoryIndex index.html
+
+# Une seule adresse par page : https://zmsolutions.fr/<page>/ (audit SEO, lignes 3 a 5).
+# Chaque variante va directement a l'adresse finale, en une seule redirection 301.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Ancienne adresse de la page site web (avant « partout en France »).
+  RewriteRule ^creation-site-web-blois(?:/.*)?$ https://zmsolutions.fr/creation-site-web/ [R=301,L]
+  # La page d'erreur demandee directement repond 404 (REDIRECT_STATUS vide : pas quand Apache la sert pour une erreur).
+  RewriteCond %{ENV:REDIRECT_STATUS} ^$
+  RewriteRule ^404\.html$ - [R=404,L]
+  # .../index.html -> .../ (THE_REQUEST : seulement si le visiteur l'a demande, pas l'index interne d'Apache).
+  RewriteCond %{THE_REQUEST} \s/+((?:[^\s?]*/)?)index\.html[\s?]
+  RewriteRule ^ https://zmsolutions.fr/%1 [R=301,L]
+  # http -> https. X-Forwarded-Proto : si un proxy termine le https devant Apache, pas de boucle.
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://zmsolutions.fr%{REQUEST_URI} [R=301,L]
+  # www -> domaine nu.
+  RewriteCond %{HTTP_HOST} ^www\.zmsolutions\.fr$ [NC]
+  RewriteRule ^ https://zmsolutions.fr%{REQUEST_URI} [R=301,L]
+</IfModule>
 
 # Les outils de construction et la documentation ne sont pas servis.
 RedirectMatch 404 ^/(tools|pages|\.git)(/|$)
@@ -16,19 +35,25 @@ RedirectMatch 404 ^/(tools|pages|\.git)(/|$)
   AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript application/json image/svg+xml text/xml application/xml text/plain
 </IfModule>
 
+AddType font/woff2 .woff2
+
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresDefault "access plus 1 hour"
   ExpiresByType text/html "access plus 0 seconds"
-  # site.css est appele avec ?v=N : changer N a chaque mise en ligne suffit a le rafraichir.
-  ExpiresByType text/css "access plus 30 days"
-  # Les modules JS s'importent entre eux sans numero de version : cache court.
-  ExpiresByType application/javascript "access plus 1 hour"
-  ExpiresByType text/javascript "access plus 1 hour"
+  # CSS et scripts sont appeles avec ?v=<empreinte du contenu> (tools/build.py) : un contenu modifie change
+  # d'adresse, donc un an de cache est sans risque.
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
   ExpiresByType image/webp "access plus 30 days"
   ExpiresByType image/jpeg "access plus 30 days"
   ExpiresByType image/png "access plus 30 days"
   ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType image/x-icon "access plus 30 days"
+  ExpiresByType image/vnd.microsoft.icon "access plus 30 days"
+  # Polices : leur nom ne change jamais de contenu (nouveau fichier = nouveau nom).
+  ExpiresByType font/woff2 "access plus 1 year"
   ExpiresByType application/json "access plus 1 hour"
 </IfModule>
 

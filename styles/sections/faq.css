@@ -60,6 +60,6 @@
 .faq__more {
   margin: 30px auto 0; max-width: 60ch; text-align: center;
   font-size: 14px;
-  color: color-mix(in oklab, var(--ink) 60%, transparent);
+  color: color-mix(in oklab, var(--ink) 72%, transparent);
 }
 .faq__more a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }

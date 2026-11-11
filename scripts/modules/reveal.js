@@ -3,7 +3,7 @@
  * dès qu'ils entrent dans le viewport. Filet de sécurité après 1,5 s
  * au cas où l'IntersectionObserver ne se déclencherait pas.
  */
-import { $$ } from '../utils/dom.js';
+import { $$ } from '../utils/dom.js?v=3db957c402';
 
 const SELECTOR =
   '.section, .card, .quote, .mockup, .demo__intro, ' +

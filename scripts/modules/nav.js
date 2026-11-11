@@ -1,7 +1,7 @@
 /**
  * Navigation : burger mobile + fermeture au clic + année du footer.
  */
-import { $, $$ } from '../utils/dom.js';
+import { $, $$ } from '../utils/dom.js?v=3db957c402';
 
 export function initNav() {
   // Année automatique en pied de page

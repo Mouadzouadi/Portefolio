@@ -31,18 +31,20 @@
   <meta name="twitter:description" content="Agent vocal IA, commande WhatsApp, sites, applications et automatisations sur-mesure pour les commerces, partout en France. Démos à essayer en ligne." />
   <meta name="twitter:image" content="https://zmsolutions.fr/img/og-image.jpg" />
 
-  <link rel="icon" href="/img/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="/img/icon-192.png" type="image/png" sizes="192x192" />
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles/site.css?v=11" />
+  <!-- Polices hebergees sur le site (styles/base/fonts.css) : prechargees, elles s'affichent sans attendre le CSS. -->
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/playfair-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/styles/site.css?v=76b6db602f" />
 
   <!-- ===== Données structurées : entreprise locale (Google) ===== -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
+    "@id": "https://zmsolutions.fr/#organization",
     "name": "ZM Solutions",
     "description": "Création de sites web, applications métier et agents vocaux IA sur-mesure pour les commerces de proximité.",
     "url": "https://zmsolutions.fr/",
@@ -73,8 +75,20 @@
       "Application métier",
       "Digitalisation des commerces",
       "Commande par WhatsApp"
-    ],
-    "sameAs": []
+    ]
+  }
+  </script>
+
+  <!-- ===== Données structurées : le site (relié à l'entreprise par son @id) ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://zmsolutions.fr/#website",
+    "url": "https://zmsolutions.fr/",
+    "name": "ZM Solutions",
+    "inLanguage": "fr-FR",
+    "publisher": { "@id": "https://zmsolutions.fr/#organization" }
   }
   </script>
 
@@ -150,8 +164,8 @@
 
   <!-- ============== NAV ============== -->
   <header class="nav" id="nav">
-    <a href="#top" class="nav__brand" aria-label="ZM Solutions, retour en haut">
-      <picture><source srcset="/img/logo.webp" type="image/webp" /><img src="/img/logo.png" alt="" class="nav__logo" width="176" height="96" /></picture>
+    <a href="#top" class="nav__brand">
+      <picture><source srcset="/img/logo.webp" type="image/webp" /><img src="/img/logo.png" alt="" class="nav__logo" width="102" height="56" /></picture>
       <span class="nav__wordmark">
         <span class="nav__wordmark-main">ZM Solutions</span>
         <span class="nav__wordmark-sub">Digitalisation · IA · Sur-mesure</span>
@@ -177,13 +191,13 @@
       <div class="hero__content">
         <p class="hero__meta">Mouad Zouadi — ingénieur logiciel et IA</p>
         <h1 class="hero__title">
-          Je conçois les outils numériques <span class="hl">sur-mesure</span> de votre commerce.
+          Agent vocal IA, commande WhatsApp et outils numériques <span class="hl">sur-mesure</span> pour votre commerce.
         </h1>
 
         <p class="hero__lede">
-          Agent vocal qui répond à votre téléphone 24/7, commande par WhatsApp, connexion à votre caisse
-          ou tablette de commande, automatisations, applications, sites… <strong>à peu près tout ce qui touche
-          au numérique</strong>, partout en France.
+          Un standard qui répond à votre téléphone 24/7, des commandes prises sur WhatsApp, la connexion à votre
+          caisse ou tablette de commande, des automatisations, des applications, des sites… <strong>à peu près tout
+          ce qui touche au numérique</strong>, partout en France.
         </p>
         <p class="hero__cred">
           Ingénieur ESILV, en alternance chez Procter <span class="amp">&amp;</span> Gamble sur des solutions IA en production.
@@ -281,7 +295,7 @@
   <section class="section section--dark" id="agent">
     <div class="section__head">
       <span class="eyebrow">02 — Démonstration interactive</span>
-      <h2 class="section__title">Écoutez votre futur standard téléphonique.</h2>
+      <h2 class="section__title">Agent vocal IA&nbsp;: écoutez votre futur <em>standard téléphonique</em>.</h2>
       <p class="section__sub">
         Choisissez un type de commerce, lancez l'agent, et passez une
         commande comme le ferait un client. La conversation se déroule sous vos yeux.
@@ -347,7 +361,7 @@
   <section class="section" id="whatsapp">
     <div class="section__head">
       <span class="eyebrow">03 — Démonstration WhatsApp</span>
-      <h2 class="section__title">Vos clients commandent <em>directement sur WhatsApp</em>.</h2>
+      <h2 class="section__title">Commande WhatsApp&nbsp;: vos clients commandent <em>en un message</em>.</h2>
       <p class="section__sub">
         Un assistant répond immédiatement, présente la carte, prend la commande et la transmet en cuisine,
         sans appel ni attente. Testez-le avec notre restaurant de démonstration, depuis votre téléphone.
@@ -440,13 +454,13 @@
             </div>
           </header>
 
-          <nav class="shop__cats" role="tablist" aria-label="Catégories de menu">
-            <button class="shop__cat is-active" data-cat="all">Tout</button>
-            <button class="shop__cat" data-cat="burger">Burgers</button>
-            <button class="shop__cat" data-cat="tacos">Tacos</button>
-            <button class="shop__cat" data-cat="accomp">Accompagnements</button>
-            <button class="shop__cat" data-cat="dessert">Desserts</button>
-            <button class="shop__cat" data-cat="boisson">Boissons</button>
+          <nav class="shop__cats" aria-label="Catégories de menu">
+            <button class="shop__cat is-active" data-cat="all" aria-pressed="true">Tout</button>
+            <button class="shop__cat" data-cat="burger" aria-pressed="false">Burgers</button>
+            <button class="shop__cat" data-cat="tacos" aria-pressed="false">Tacos</button>
+            <button class="shop__cat" data-cat="accomp" aria-pressed="false">Accompagnements</button>
+            <button class="shop__cat" data-cat="dessert" aria-pressed="false">Desserts</button>
+            <button class="shop__cat" data-cat="boisson" aria-pressed="false">Boissons</button>
           </nav>
 
           <div class="shop__layout">
@@ -641,7 +655,7 @@
   <footer class="footer">
     <div class="footer__top">
       <div class="footer__brand">
-        <picture><source srcset="/img/logo.webp" type="image/webp" /><img src="/img/logo.png" alt="" width="176" height="96" loading="lazy" /></picture>
+        <picture><source srcset="/img/logo.webp" type="image/webp" /><img src="/img/logo.png" alt="" width="102" height="56" loading="lazy" /></picture>
         <div>
           <strong>ZM Solutions</strong>
           <span>Zouadi Mouad — Ingénieur Logiciel et Intelligence Artificielle</span>
@@ -660,6 +674,6 @@
     </div>
   </footer>
 
-  <script type="module" src="/scripts/main.js?v=12"></script>
+  <script type="module" src="/scripts/main.js?v=4bb6c403de"></script>
 </body>
 </html>

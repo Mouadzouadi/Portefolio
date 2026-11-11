@@ -3,7 +3,7 @@
  * réactif (Map<id, {item, qty}>), animation d'ajout, toast et
  * checkout factice qui vide le panier.
  */
-import { $, $$, formatEUR, escapeHTML } from '../utils/dom.js';
+import { $, $$, formatEUR, escapeHTML } from '../utils/dom.js?v=3db957c402';
 
 export function initShop(menu) {
   const menuEl = $('#shopMenu');
@@ -44,8 +44,10 @@ export function initShop(menu) {
         ? `<span class="shop-item__tag ${m.tag === 'Végétarien' ? 'shop-item__tag--veg' : ''}">${escapeHTML(m.tag)}</span>`
         : '';
       return `
-        <article class="shop-item" role="listitem" data-id="${escapeHTML(m.id)}">
-          <div class="shop-item__img" style="background-image:url('${escapeHTML(m.img)}')">${tag}</div>
+        <div class="shop-item" role="listitem" data-id="${escapeHTML(m.id)}">
+          <div class="shop-item__img">
+            <img src="${escapeHTML(m.img)}" alt="" width="480" height="360" loading="lazy" decoding="async">${tag}
+          </div>
           <div class="shop-item__body">
             <div class="shop-item__name">${escapeHTML(m.name)}</div>
             <p class="shop-item__desc">${escapeHTML(m.desc)}</p>
@@ -54,7 +56,7 @@ export function initShop(menu) {
               <button class="shop-item__add" aria-label="Ajouter ${escapeHTML(m.name)} au panier" data-add="${escapeHTML(m.id)}">+</button>
             </div>
           </div>
-        </article>`;
+        </div>`;
     }).join('') ||
       `<p style="padding:24px;color:#888;grid-column:1/-1;text-align:center;">Aucun plat dans cette catégorie.</p>`;
     menuEl.scrollLeft = 0;
@@ -122,8 +124,9 @@ export function initShop(menu) {
 
   els.cats.forEach((c) =>
     c.addEventListener('click', () => {
-      els.cats.forEach((x) => x.classList.remove('is-active'));
+      els.cats.forEach((x) => { x.classList.remove('is-active'); x.setAttribute('aria-pressed', 'false'); });
       c.classList.add('is-active');
+      c.setAttribute('aria-pressed', 'true');
       currentCat = c.dataset.cat;
       renderMenu();
     })

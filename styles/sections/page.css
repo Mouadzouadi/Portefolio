@@ -4,7 +4,7 @@
 .page-hero { padding-top: clamp(120px, 16vw, 170px); padding-bottom: 24px; }
 .page-hero .section__title { max-width: 22ch; }
 .page-hero .section__sub { max-width: 62ch; }
-.crumbs { font-size: 13px; color: color-mix(in oklab, var(--ink) 60%, transparent); margin-bottom: 18px; display: flex; gap: 8px; flex-wrap: wrap; }
+.crumbs { font-size: 13px; color: color-mix(in oklab, var(--ink) 72%, transparent); margin-bottom: 18px; display: flex; gap: 8px; flex-wrap: wrap; }
 .crumbs a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 
 .prose { max-width: 760px; padding-top: 8px; }
@@ -28,5 +28,5 @@
 .more-link { display: block; margin-top: 10px; font-weight: 600; color: inherit; text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 4px; }
 /* Boutons sur fond sombre (bloc final des pages dediees). */
 .page-cta .btn--primary { background: var(--gold-2); color: var(--ink); }
-.page-cta .btn--ghost { color: var(--paper); border-color: color-mix(in oklab, var(--paper) 40%, transparent); }
+.page-cta .btn--ghost { color: var(--paper); border-color: color-mix(in oklab, var(--paper) 72%, transparent); }
 .page-cta .btn--ghost:hover { border-color: var(--paper); }
